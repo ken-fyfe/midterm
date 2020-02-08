@@ -21,6 +21,7 @@ $(() => {
           <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
           </button>
+          <button type="button" class="btn btn-primary">Invest now!</button>
         </nav>
       </div>`
 
