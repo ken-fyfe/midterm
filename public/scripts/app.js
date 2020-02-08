@@ -7,4 +7,11 @@ $(() => {
       $("<div>").text(user.name).appendTo($("body"));
     }
   });;
+  function logIn(data) {
+    return $.ajax({
+      method: "POST",
+      url: "/users/login",
+      data
+    });
+  }
 });
