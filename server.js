@@ -2,13 +2,15 @@
 require('dotenv').config();
 
 // Web server config
-const PORT       = process.env.PORT || 3000;
+const PORT       = process.env.PORT || 5000;
 const ENV        = process.env.ENV || "development";
+const path = require('path');
 const express    = require("express");
 const bodyParser = require("body-parser");
 const sass       = require("node-sass-middleware");
 const app        = express();
 const morgan     = require('morgan');
+
 
 // PG database client/connection setup
 const { Pool } = require('pg');
@@ -29,7 +31,10 @@ app.use("/styles", sass({
   debug: true,
   outputStyle: 'expanded'
 }));
-app.use(express.static("public"));
+// app.use(express.static("public"));
+app.use(express.static(path.join(__dirname, './public')));
+
+
 
 // Separated Routes for each Resource
 // Note: Feel free to replace the example routes below with your own

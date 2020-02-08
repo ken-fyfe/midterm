@@ -1,15 +1,15 @@
 $(() => {
     console.log("header")
     window.header = {};
-
+  
     const $pageHeader = $('#page-header');
     // let currentUser = null;
     function updateHeader() {
-      // currentUser = user;
-      // $pageHeader.find("#page-header__user-links").remove();
+      currentUser = user;
+      $pageHeader.find("#page-header__user-links").remove();
       let userLinks;
-
-
+  
+    
         userLinks = `<div class="pos-f-t">
         <div class="collapse" id="navbarToggleExternalContent">
           <div class="bg-dark p-4">
@@ -23,18 +23,15 @@ $(() => {
           </button>
         </nav>
       </div>`
-
-
-
-
+      
+      
+      
+  
       $pageHeader.append(userLinks);
   }
     window.header.update = updateHeader;
-
-    // getMyDetails()
-    //   .then(function( json ) {
-    //   updateHeader(json.user);
-    // });
-  updateHeader();
+  
+    
+  
   });
-
+  
