@@ -5,8 +5,8 @@ $(() => {
     const $pageHeader = $('#page-header');
     // let currentUser = null;
     function updateHeader() {
-      // currentUser = user;
-      // $pageHeader.find("#page-header__user-links").remove();
+      currentUser = user;
+      $pageHeader.find("#page-header__user-links").remove();
       let userLinks;
   
     
@@ -31,10 +31,7 @@ $(() => {
   }
     window.header.update = updateHeader;
   
-    // getMyDetails()
-    //   .then(function( json ) {
-    //   updateHeader(json.user);
-    // });
-  updateHeader();
+    
+  
   });
   
