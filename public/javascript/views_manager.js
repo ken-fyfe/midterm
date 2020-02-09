@@ -4,6 +4,9 @@ $(() => {
     window.views_manager.show = function(item) {
     
       $logInForm.detach();
+      $signUp.detach();
+      $loggedIn.detach();
+
       switch (item) {
     
         case 'logIn':
@@ -12,7 +15,11 @@ $(() => {
           case 'loggedIn':
           $loggedIn.appendTo($main);
           break;
-        }
+          case 'signUp':
+            $signUp.appendTo($main);
+            break;
+          }
+        
       
     }
   });
