@@ -25,26 +25,43 @@ module.exports = (db) => {
   });
 //check if a registered user exists by comparing password with hashed password
   const login =  function(email, password) {
-    return database.getUserWithEmail(email)
-    .then(user => {
-      if (bcrypt.compareSync(password, user.password)) {
-        return user;
+    return db.query(`
+    SELECT *
+    FROM users
+    WHERE email = $1;
+    `, [email])
+    // .then(res => console.log(res.rows[0]))
+    
+    .then(res => {
+      if (bcrypt.compareSync(password, res.rows[0].password)) {
+        console.log(res)
+        
+        const userobj =  {password: res.rows[0].password, username: res.rows[0].username, id: res.rows[0].id}
+        return userobj;
+        
       }
+      
+      
       return null;
     });
   }
   exports.login = login;
 
   router.post('/login', (req, res) => {
+    console.log(req.body)
     const {email, password} = req.body;
     login(email, password)
       .then(user => {
+        console.log("data66666",user);
+
         if (!user) {
           res.send({error: "error"});
           return;
         }
         req.session.userId = user.id;
-        res.send({user: {name: user.name, email: user.email, id: user.id}});
+        console.log("user",user);
+
+        res.send({user})
       })
       .catch(e => res.send(e));
   });
