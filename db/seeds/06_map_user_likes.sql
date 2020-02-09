@@ -1,0 +1,18 @@
+INSERT INTO map_user_likes (user_id, map_id, likes)
+VALUES (1, 1, TRUE),
+(1, 2, TRUE),
+(1, 3, TRUE),
+(2, 4, TRUE),
+(2, 1, TRUE),
+(2, 2, TRUE),
+(1, 3, TRUE),
+(5, 2, TRUE),
+(5, 3, TRUE),
+(3, 2, TRUE),
+(3, 3, TRUE),
+(3, 4, TRUE),
+(5, 3, TRUE),
+(4, 4, TRUE),
+(4, 5, TRUE),
+(4, 6, TRUE),
+(4, 7, TRUE);
