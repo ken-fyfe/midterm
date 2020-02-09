@@ -16,11 +16,11 @@ $(() => {
 
 
   const $logInForm = $(`
-<form>
+<form class="signupform">
   <div class="form-row align-items-center">
     <div class="col-auto">
       <label class="sr-only" for="inlineFormInput">Name</label>
-      <input type="email" name="email" class="form-control mb-2" id="inlineFormInput" placeholder="Jane Doe">
+      <input type="email" name="email" class="form-control mb-2" id="inlineFormInput" placeholder="Email">
     </div>
     <div class="col-auto">
       <label class="sr-only" for="inlineFormInputGroup">Username</label>
