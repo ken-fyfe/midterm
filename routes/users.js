@@ -25,7 +25,7 @@ module.exports = (db) => {
   });
 //check if a registered user exists by comparing password with hashed password
   const login =  function(email, password) {
-     db.query(`
+    return db.query(`
     SELECT *
     FROM users
     WHERE email = $1;
@@ -34,12 +34,14 @@ module.exports = (db) => {
     
     .then(res => {
       if (bcrypt.compareSync(password, res.rows[0].password)) {
-        return res.rows[0];
+        console.log(res)
+        
+        const userobj =  {password: res.rows[0].password, username: res.rows[0].username, id: res.rows[0].id}
+        return userobj;
         
       }
       
       
-      console.log(res.rows[0].password)
       return null;
     });
   }
@@ -50,12 +52,16 @@ module.exports = (db) => {
     const {email, password} = req.body;
     login(email, password)
       .then(user => {
+        console.log("data66666",user);
+
         if (!user) {
           res.send({error: "error"});
           return;
         }
         req.session.userId = user.id;
-        res.send({user: {name: user.name, email: user.email, id: user.id}});
+        console.log("user",user);
+
+        res.send({user})
       })
       .catch(e => res.send(e));
   });

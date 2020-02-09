@@ -9,7 +9,9 @@ $(() => {
         case 'logIn':
           $logInForm.appendTo($main);
           break;
-    
+          case 'loggedIn':
+          $loggedIn.appendTo($main);
+          break;
         }
       
     }

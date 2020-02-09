@@ -39,14 +39,18 @@ $(() => {
       console.log("data", data)
     logIn(data)
       .then(json => {
-        console.log(json);
+        console.log("data",json);
         if (!json.user) {
+            console.log("data1",json);
+
           views_manager.show('error', 'Failed to login');
           return;
         }
+        console.log("data2",json);
+
         console.log(json.user);
         header.update(json.user);
-        // views_manager.show('listings');
+        views_manager.show('loggedIn');
       });
   });
  
