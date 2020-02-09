@@ -22,6 +22,8 @@ $(() => {
             <span class="navbar-toggler-icon"></span>
           </button>
           <button type="button" class="btn btn-primary">Invest now!</button>
+          <button type="button" class="btn btn-primary login_button">Login</button>
+
         </nav>
       </div>`
 
@@ -37,5 +39,8 @@ $(() => {
     //   updateHeader(json.user);
     // });
   updateHeader();
+  $("header").on('click', '.login_button', () => {
+    views_manager.show('logIn');
+  });
   });
 
