@@ -16,31 +16,24 @@ function getMyDetails() {
   }
 
   const $signUp= $(`
-<form>
+  <form class="signupform">
   <div class="form-row align-items-center">
-  <div class="col-auto">
-
-  <label class="sr-only" for="inlineFormInput">Email</label>
-  <input type="username" name="username" class="form-control" id="inlineFormInputGroup" placeholder="Username">
-
-  </div>
-  </div>
     <div class="col-auto">
-      <label class="sr-only" for="inlineFormInput">Email</label>
-      <input type="email" name="email" class="form-control mb-2" id="inlineFormInput" placeholder="Email">
-
+      <label class="sr-only" for="inlineFormInput">Name</label>
+      <input type="username" name="username" class="form-control mb-2" id="inlineFormInput" placeholder="Username">
     </div>
-
     <div class="col-auto">
-      <label class="sr-only" for="inlineFormInputGroup">Password</label>
+      <label class="sr-only" for="inlineFormInput">Name</label>
+      <input type="email" name="email" class="form-control mb-2" id="inlineFormInputEmail" placeholder="Email">
+    </div>
+    <div class="col-auto">
+      <label class="sr-only" for="inlineFormInputGroup">Username</label>
       <div class="input-group mb-2">
-
         <input type="password" name="password" class="form-control" id="inlineFormInputGroup" placeholder="Password">
       </div>
     </div>
-
     <div class="col-auto">
-      <button type="submit" class="btn btn-primary mb-2">Join</button>
+      <button type="submit" class="btn btn-primary mb-2">Submit</button>
     </div>
   </div>
 </form>

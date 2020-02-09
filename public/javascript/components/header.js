@@ -59,7 +59,7 @@ $(() => {
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-icon"></span>
         </button>
-<div class="welcome">Welcome ${user.username}</div>
+<div class="headertext">Welcome ${user.username}</div>
 <button type="button" class="btn btn-primary logout_button">Log Out</button>
 
       </nav>
