@@ -26,7 +26,7 @@ module.exports = db => {
     const user = req.body;
     user.password = bcrypt.hashSync(user.password, 12);
     const userValues = [user["username"], user["email"], user["password"]];
-    console.log(userValues);
+
     return db
       .query(
         `
@@ -48,7 +48,7 @@ module.exports = db => {
           id: res.rows[0].id
         };
         req.session.userId = user.id;
-        console.log(user);
+        //console.log(user);
         // console.log(user.id)
         console.log(req.session.userId, "cookie");
         res.send(":hugging_face:");
@@ -71,7 +71,7 @@ module.exports = db => {
 
         .then(res => {
           if (bcrypt.compareSync(password, res.rows[0].password)) {
-            console.log(res);
+            //console.log(res);
 
             const userobj = {
               password: res.rows[0].password,
@@ -88,18 +88,15 @@ module.exports = db => {
   exports.login = login;
 
   router.post("/login", (req, res) => {
-    console.log(req.body);
     const { email, password } = req.body;
     login(email, password)
       .then(user => {
-        console.log("data66666", user);
 
         if (!user) {
           res.send({ error: "error" });
           return;
         }
         req.session.userId = user.id;
-        console.log("user", user);
 
         res.send({ user });
       })
@@ -113,7 +110,6 @@ module.exports = db => {
 
   router.get("/me", (req, res) => {
     const userId = req.session.userId;
-    console.log("inside me", userId);
     if (!userId) {
       res.send({ message: "not logged in" });
 
@@ -140,10 +136,45 @@ module.exports = db => {
           id: user1.rows[0].id
         };
         const user = userobj;
-        console.log(userobj, "star");
         res.send({ user });
       })
       .catch(e => res.send(e));
   });
+
+  router.get("/maps", (req, res) => {
+    const userId = req.session.userId;
+    console.log('inside maps', userId);
+    if (!userId) {
+      return db
+      .query(
+        `
+  SELECT *
+  FROM maps;
+  `)
+      .then(mapsData => {
+        const maps = mapsData.rows
+        res.send({ maps })
+      }
+        ).catch(e => res.send(e));
+    }
+    return db
+      .query(
+        `
+  SELECT *
+  FROM maps
+  WHERE user_id = $1;
+  `,
+        [userId]
+      )
+      .then(mapsData => {
+        const maps = mapsData.rows
+        res.send({ maps })
+      }
+        ).catch(e => res.send(e));
+  });
+
+
+
+
   return router;
 };

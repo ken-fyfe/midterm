@@ -11,6 +11,12 @@ $(() => {
       url: "/api/users/logout"
     });
   }
+  function getMyMaps() {
+    console.log("getMyMaps");
+    return $.ajax({
+      url: "/api/users/maps",
+    });
+  }
 
   console.log("header");
   window.header = {};
@@ -41,7 +47,7 @@ $(() => {
         </nav>
       </div>`;
     } else {
-      console.log(user)
+      //console.log(user)
       userLinks = `<div class="pos-f-t" id="page-header__user-links">
       <div class="collapse" id="navbarToggleExternalContent">
         <div class="bg-dark p-4">
@@ -65,7 +71,7 @@ $(() => {
   window.header.update = updateHeader;
 
   getMyDetails().then(function(json) {
-    console.log(json)
+    //console.log(json)
     updateHeader(json.user);
   });
   updateHeader();
@@ -78,6 +84,14 @@ $(() => {
   $("header").on("click", ".logout_button", () => {
     logOut().then(() => {
       header.update(null);
-    });
+
+    }).then(getMyMaps)
+    .then(function(json) {
+    console.log('maps', json);
+    all_maps.addMaps(json.maps);
+
+
+  views_manager.show('allMaps');
+  });
   });
 });

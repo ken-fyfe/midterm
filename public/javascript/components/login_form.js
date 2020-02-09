@@ -1,14 +1,19 @@
-
-
 $(() => {
     function logIn(data) {
-        console.log("data",data)
+        //console.log("data",data)
         return $.ajax({
           method: "POST",
           url: "/api/users/login",
           data
         });
       }
+      function getMyMaps() {
+        console.log("getMyMaps");
+        return $.ajax({
+          url: "/api/users/maps",
+        });
+      }
+
 
   const $logInForm = $(`
 <form>
@@ -20,11 +25,11 @@ $(() => {
     <div class="col-auto">
       <label class="sr-only" for="inlineFormInputGroup">Username</label>
       <div class="input-group mb-2">
-        
+
         <input type="password" name="password" class="form-control" id="inlineFormInputGroup" placeholder="Password">
       </div>
     </div>
-   
+
     <div class="col-auto">
       <button type="submit" class="btn btn-primary mb-2">Submit</button>
     </div>
@@ -33,25 +38,29 @@ $(() => {
   `);
   window.$logInForm = $logInForm;
   $logInForm.on('submit', function(event) {
-      
+
       event.preventDefault();
       const data = $(this).serialize();
-      console.log("data", data)
+
     logIn(data)
       .then(json => {
-        console.log("data",json);
+
         if (!json.user) {
-            console.log("data1",json);
+
 
           views_manager.show('error', 'Failed to login');
           return;
         }
-        console.log("data2",json);
+        header.update(json.user)
 
-        console.log(json.user);
-        header.update(json.user);
-        views_manager.show('loggedIn');
+        }).then(getMyMaps)
+        .then(function(json) {
+          console.log('maps', json);
+          all_maps.addMaps(json.maps);
+
+
+        views_manager.show('allMaps');
       });
   });
- 
+
 });

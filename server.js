@@ -59,7 +59,7 @@ app.use("/api/widgets", widgetsRoutes(db));
 
 //   return;
 // }
-// return 
+// return
 
 
 // Home page
@@ -90,16 +90,16 @@ if (userId) {
     };
     const templateVars = { user: userobj}
 
-    console.log(userobj, "from server");
+    //console.log(userobj, "from server");
     res.render("index",templateVars)
   })
-  
+
 } else {
   const templateVars = { user: null}
   res.render("index",templateVars)
 
 }
-    
+
 });
 
 

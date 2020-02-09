@@ -2,13 +2,12 @@ $(() => {
 
 
 function getMyDetails() {
-  console.log("getMyDetails");
+
   return $.ajax({
     url: "/api/users/me",
   });
 }
   function signUp(data) {
-    console.log("data", data);
     return $.ajax({
       method: "POST",
       url: "/api/users/signup",
@@ -20,7 +19,7 @@ function getMyDetails() {
 <form>
   <div class="form-row align-items-center">
   <div class="col-auto">
-    
+
   <label class="sr-only" for="inlineFormInput">Email</label>
   <input type="username" name="username" class="form-control" id="inlineFormInputGroup" placeholder="Username">
 
@@ -35,11 +34,11 @@ function getMyDetails() {
     <div class="col-auto">
       <label class="sr-only" for="inlineFormInputGroup">Password</label>
       <div class="input-group mb-2">
-        
+
         <input type="password" name="password" class="form-control" id="inlineFormInputGroup" placeholder="Password">
       </div>
     </div>
-   
+
     <div class="col-auto">
       <button type="submit" class="btn btn-primary mb-2">Join</button>
     </div>
@@ -58,8 +57,8 @@ function getMyDetails() {
         header.update(json.user);
         views_manager.show('loggedIn');
       });
-    
-  
+
+
 })
 
 });
