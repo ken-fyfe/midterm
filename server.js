@@ -53,14 +53,55 @@ app.use("/api/widgets", widgetsRoutes(db));
 // Note: mount other resources here, using the same pattern above
 
 
+
+// if (!userId) {
+//   res.send({ message: "not logged in" });
+
+//   return;
+// }
+// return 
+
+
 // Home page
 // Warning: avoid creating more routes in this file!
 // Separate them into separate routes files (see above).
 app.get("/", (req, res) => {
 
-      res.render("index")
+const userId = req.session.userId;
+console.log("inside the server", userId);
+if (userId) {
+  db
+    .query(
+      `
+  SELECT *
+  FROM users
+  WHERE id = $1`,[userId]
+  )
+  .then(user1 => {
+    if (!user1) {
+      res.send({ error: "no user with that id" });
+      return;
+    }
+
+    const userobj = {
+      password: user1.rows[0].password,
+      username: user1.rows[0].username,
+      id: user1.rows[0].id
+    };
+    const templateVars = { user: userobj}
+
+    console.log(userobj, "from server");
+    res.render("index",templateVars)
+  })
+  
+} else {
+  const templateVars = { user: null}
+  res.render("index",templateVars)
+
+}
     
 });
+
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);

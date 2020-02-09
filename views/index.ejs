@@ -23,7 +23,11 @@
 
     <header id="page-header" class="page-header"></header>
     <main id="main-content"></main>
-    <h1>Hello World! a new edit again</h1>
+    <div><% if(user){ %>
+      <h1>Lgged in</h1>
+    <% } else{ %>
+     <h1>Not logged in</h1>
+            <% } %>
 
     <script src="/javascript/components/header.js"></script>
     <script src="/javascript/components/login_form.js"></script>
