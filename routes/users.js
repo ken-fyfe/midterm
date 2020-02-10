@@ -28,15 +28,12 @@ module.exports = db => {
     const userValues = [user["username"], user["email"], user["password"]];
 
     return db
-      .query(
-        `
-  INSERT INTO users (
-    username, email, password)
-    VALUES (
-    $1, $2, $3)
-    RETURNING *;`,
-        userValues
-      )
+      .query(`
+        INSERT INTO users (
+        username, email, password)
+        VALUES (
+        $1, $2, $3)
+        RETURNING *;`, userValues)
       .then(res => {
         if (!res) {
           res.send({ error: "error" });
@@ -55,24 +52,18 @@ module.exports = db => {
       })
       .catch(e => res.send(e));
   });
+
   //check if a registered user exists by comparing password with hashed password
   const login = function(email, password) {
     return (
       db
-        .query(
-          `
-    SELECT *
-    FROM users
-    WHERE email = $1;
-    `,
-          [email]
-        )
-        // .then(res => console.log(res.rows[0]))
-
+        .query(`
+          SELECT *
+          FROM users
+          WHERE email = $1;
+          `, [email])
         .then(res => {
           if (bcrypt.compareSync(password, res.rows[0].password)) {
-            //console.log(res);
-
             const userobj = {
               password: res.rows[0].password,
               username: res.rows[0].username,
@@ -80,7 +71,6 @@ module.exports = db => {
             };
             return userobj;
           }
-
           return null;
         })
     );
@@ -91,7 +81,6 @@ module.exports = db => {
     const { email, password } = req.body;
     login(email, password)
       .then(user => {
-
         if (!user) {
           res.send({ error: "error" });
           return;
@@ -116,14 +105,11 @@ module.exports = db => {
       return;
     }
     return db
-      .query(
-        `
-  SELECT *
-  FROM users
-  WHERE id = $1;
-  `,
-        [userId]
-      )
+      .query(`
+        SELECT *
+        FROM users
+        WHERE id = $1;
+        `, [userId])
       .then(user1 => {
         if (!user1) {
           res.send({ error: "no user with that id" });
@@ -146,35 +132,41 @@ module.exports = db => {
     console.log('inside maps', userId);
     if (!userId) {
       return db
-      .query(
-        `
-  SELECT *
-  FROM maps;
-  `)
-      .then(mapsData => {
-        const maps = mapsData.rows
-        res.send({ maps })
-      }
+        .query(`
+          SELECT *
+          FROM maps;
+          `)
+        .then(mapsData => {
+          const maps = mapsData.rows;
+          res.send({ maps });
+        }
         ).catch(e => res.send(e));
     }
     return db
-      .query(
-        `
-  SELECT *
-  FROM maps
-  WHERE user_id = $1;
-  `,
-        [userId]
-      )
+      .query(`
+        SELECT *
+        FROM maps
+        WHERE user_id = $1;
+        `, [userId])
       .then(mapsData => {
-        const maps = mapsData.rows
-        res.send({ maps })
+        const maps = mapsData.rows;
+        res.send({ maps });
       }
-        ).catch(e => res.send(e));
+      ).catch(e => res.send(e));
   });
 
-
-
+  // draw all pins
+  router.get("/pins", (req, res) => {
+    return db
+      .query(`
+      SELECT *
+      FROM pins;`)
+      .then(pinobj => {
+        const pins = pinobj.rows;
+        res.send({ pins });
+      })
+      .catch(e => res.send(e));
+  });
 
   return router;
 };

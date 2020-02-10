@@ -10,7 +10,7 @@ const bodyParser = require("body-parser");
 const sass       = require("node-sass-middleware");
 const app        = express();
 const morgan     = require('morgan');
-const cookieSession = require('cookie-session')
+const cookieSession = require('cookie-session');
 
 app.use(cookieSession({
   name: 'session',
@@ -88,16 +88,13 @@ if (userId) {
       username: user1.rows[0].username,
       id: user1.rows[0].id
     };
-    const templateVars = { user: userobj}
-
+    const templateVars = { user: userobj};
     //console.log(userobj, "from server");
-    res.render("index",templateVars)
-  })
-
+    res.render("index",templateVars);
+  });
 } else {
-  const templateVars = { user: null}
-  res.render("index",templateVars)
-
+  const templateVars = { user: null};
+  res.render("index",templateVars);
 }
 
 });
