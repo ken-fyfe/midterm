@@ -155,7 +155,7 @@ module.exports = db => {
       ).catch(e => res.send(e));
   });
 
-  // draw all pins
+  // select pins from database
   router.get("/pins", (req, res) => {
     return db
       .query(`

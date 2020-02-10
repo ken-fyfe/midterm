@@ -71,12 +71,11 @@ const userId = req.session.userId;
 console.log("inside the server", userId);
 if (userId) {
   db
-    .query(
-      `
-  SELECT *
-  FROM users
-  WHERE id = $1`,[userId]
-  )
+    .query(`
+    SELECT *
+    FROM users
+    WHERE id = $1`,[userId]
+    )
   .then(user1 => {
     if (!user1) {
       res.send({ error: "no user with that id" });
@@ -98,7 +97,6 @@ if (userId) {
 }
 
 });
-
 
 app.listen(PORT, () => {
   console.log(`Example app listening on port ${PORT}`);

@@ -1,4 +1,4 @@
-
+// determines current location and show it on a map
 const currentLocation = function() {
   const map = L.map("map-current-location");
 
@@ -12,17 +12,17 @@ const currentLocation = function() {
       'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
       id: "mapbox/streets-v11"
     }
-    ).addTo(map);
+  ).addTo(map);
 
-    const onLocationFound = function(e) {
-      L.marker(e.latlng).addTo(map);
-    };
-
-    const onLocationError = function(e) {
-      alert(e.message);
-    };
-
-    map.on("locationfound", onLocationFound);
-    map.on("locationerror", onLocationError);
-    map.locate({ setView: true, maxZoom: 16 })
+  const onLocationFound = function(e) {
+    L.marker(e.latlng).addTo(map);
   };
+
+  const onLocationError = function(e) {
+    alert(e.message);
+  };
+
+  map.on("locationfound", onLocationFound);
+  map.on("locationerror", onLocationError);
+  map.locate({ setView: true, maxZoom: 16 });
+};
