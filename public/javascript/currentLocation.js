@@ -1,5 +1,4 @@
 const currentLocation = function(mapObject) {
-  // const mapOb = JSON.parse(mapObject)
   console.log('mapObject', mapObject);
   if(!mapObject){
   const map = L.map("map-current-location");
