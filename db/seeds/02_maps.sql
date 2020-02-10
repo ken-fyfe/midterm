@@ -9,7 +9,7 @@ INSERT INTO maps (
   (7, 'Osaka', 'This is an busy place!', 34.7500, 135.4601, 24),
   (7, 'Istanbul', 'This is an churchy place!', 41.1050, 29.0100, 22),
   (7, 'Seoul', 'This is an Asian place!', 37.5663, 126.9997, 28),
-  (8, 'Chicago', 'This is an Blackhawks place!', 41.8373, -87.6862, 29),
+  (8, 'Chicago', 'This is the windy city!', 41.8373, -87.6862, 29),
   (9, 'Tehran', 'This is an amazing place!', 35.6719, 51.4243, 31),
   (10,'Hong Kong', 'This is an small place!', 22.3050, 114.1850, 18),
   (11, 'Miami', 'This is an old persons place!', 25.7839, -80.2102, 21),

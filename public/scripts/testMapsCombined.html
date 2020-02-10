@@ -10,6 +10,7 @@
     <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
     <script src='displayMap.js'></script>
     <script src='currentLocation.js'></script>
+    <script src='displayCenterMap.js'></script>
     <style>
       #map-current-location {
         width: 300px;
@@ -22,11 +23,18 @@
     </style>
   </head>
   <body>
-    <div id='map-thumbnail'></div>
-    <script>displayMaps(L)</script>
-
     <div id='map-current-location'></div>
     <script>currentLocation(L)</script>
+
+    <div id='map-thumbnail'></div>
+    <script>
+      const particularMap = {
+        latitude: 25.7839,
+        longitude: -80.2102,
+        zoom_level: 10
+      };
+      displayCenterMap(particularMap);
+    </script>
   </body>
 </html>
 
