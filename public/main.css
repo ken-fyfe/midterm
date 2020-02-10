@@ -1,0 +1,14 @@
+.headertext {
+  color: #eee;
+}
+
+.signupform {
+  padding: 1%;
+  position: sticky;
+  top: 0;
+}
+
+#map-current-location {
+  width: 100vw;
+  height: 100vw;
+}
