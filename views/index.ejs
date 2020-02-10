@@ -17,6 +17,7 @@
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
     <script src="/javascript/currentLocation.js"></script>
+    <script src="/javascript/displayCenterMap.js"></script>
     <script src="/javascript/getMyPins.js"></script>
     <script src="/scripts/app.js"></script>
     <script src="/javascript/views_manager.js"></script>
@@ -32,12 +33,15 @@
     <header id="page-header" class="page-header"></header>
     <div id="maps_container">
     <main id="main-content">
-    <div id="map-current-location"></div>
-    <script>currentLocation(L)</script>
+      <div id="maps-div">
+        <div id="map-current-location"></div>
+        <!-- <div id="map-thumbnail"></div> -->
+  </div>
     </main>
 
     </div>
     <script src="/javascript/components/header.js"></script>
+    <script src="/javascript/current-map.js"></script>
     <script src="/javascript/components/login_form.js"></script>
     <script src="/javascript/components/sign_up.js"></script>
     <script src="/javascript/components/logged_in.js"></script>
