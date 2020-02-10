@@ -2,11 +2,11 @@ $(() => {
   window.mapList = {};
   function createMap(map) {
     return `
-    <article class="map-list-item">
-        <section class="map-list-item-image">
-          <h1>${map.description}</h1>
-        </section>
+    <div class="card">
+    <article class="card-body map-list-item">
+          <h3 class="card-text">${map.description}</h3>
         </article>
+        </div>
     `
   }
   window.mapList.createMap = createMap;
