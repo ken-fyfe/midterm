@@ -16,9 +16,11 @@ function clearMaps() {
 }
   function addMaps(maps) {
     clearMaps();
-    for (const map of maps) {
+    for (let i = 0; i < maps.length; i++) {
+ const mapObj = maps[i]
+ console.log("mapObj", mapObj)
       //const mapObj = maps[mapId];
-      const mapMarkUp = mapList.createMap(map);
+      const mapMarkUp = mapList.createMap(mapObj,i);
       addMap(mapMarkUp);
     }
   }
