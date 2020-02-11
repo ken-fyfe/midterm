@@ -1,35 +1,39 @@
 $(() => {
-window.currentMap = {};
-
+  window.currentMap = {};
   const $currentMap = $("#maps-div");
-  function updateMap(mapObj) {
-    console.log(mapObj, "we're here!");
-    $currentMap.find("#current-map").remove();
-    let mapLinks;
-    if (!mapObj) {
-      console.log("we have no mapObj");
-      mapLinks = `<div id="current-map">
-      <script>currentLocation()</script>
-      </div>`;
-    } else {
-      console.log('here is mapObj', mapObj);
-      mapLinks = `<div id="current-map">
-      <script>
-      currentLocation(${JSON.stringify(mapObj)});
-    </script>
-      </div>`;
-    }
 
-    $currentMap.append(mapLinks);
+  const map = L.map("map-current-location");
+
+  L.tileLayer(
+    "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw",
+    {
+      maxZoom: 18,
+      attribution:
+        'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
+        '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
+        'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
+      id: "mapbox/streets-v11"
+    }
+  ).addTo(map);
+  const onLocationFound = function(e) {
+    L.marker(e.latlng).addTo(map);
+  };
+  const onLocationError = function(e) {
+    alert(e.message);
+  };
+  map.on("locationfound", onLocationFound);
+  map.on("locationerror", onLocationError);
+  map.locate({ setView: true, maxZoom: 16 });
+
+  function updateMap(coodObj) {
+    if (coodObj) {
+      const lat = Number(coodObj.latitude);
+      const long = Number(coodObj.longitude);
+
+      map.flyTo([lat, long], 8);
+    }
   }
   window.currentMap.update = updateMap;
-  const particularMap = {
-    latitude: 25.7839,
-    longitude: -80.2102,
-    zoom_level: 10
-  };
-  console.log(particularMap, "particular map");
-  updateMap(particularMap);
 
-
+  updateMap();
 });
