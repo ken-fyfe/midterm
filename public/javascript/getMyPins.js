@@ -18,6 +18,4 @@ $((mymap) => {
        .bindPopup(`<b>${mapTitle}</b><br />${mapDesc}`).openPopup();
     }
   });
-  // L.marker([51.5, -0.09]).addTo(mymap)
-  // 	.bindPopup("<b>Hello world!</b><br />I am a popup.").openPopup();
 });

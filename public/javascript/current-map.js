@@ -1,4 +1,10 @@
 $(() => {
+  const getMyPins = function() {
+    console.log("This is getMyPins");
+    return $.ajax({
+      url: "/api/users/pins",
+    });
+  };
   window.currentMap = {};
   const $currentMap = $("#maps-div");
 
@@ -24,6 +30,22 @@ $(() => {
   map.on("locationfound", onLocationFound);
   map.on("locationerror", onLocationError);
   map.locate({ setView: true, maxZoom: 16 });
+
+  getMyPins().then(pinArray => {
+    console.log(pinArray.pins);
+    for (let pin in pinArray.pins) {
+      console.log('pin: ', pin);
+      const mapLong = pinArray.pins[pin].longitude;
+      const mapLat = pinArray.pins[pin].latitude;
+      const mapTitle = pinArray.pins[pin].title;
+      const mapDesc = pinArray.pins[pin].description;
+      console.log('mapLat :', mapLat);
+      console.log(mapLong);
+      L.marker([mapLat, mapLong])
+       .addTo(map)
+       .bindPopup(`<b>${mapTitle}</b><br />${mapDesc}`).openPopup();
+    }
+  });
 
   function updateMap(coodObj) {
     if (coodObj) {
