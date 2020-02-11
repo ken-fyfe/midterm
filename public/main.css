@@ -18,7 +18,7 @@
 
 #main-content {
   display: grid;
-  grid-template-rows: 500px 1fr;
+  grid-template-rows: 80vh 1fr;
 }
 
 #maps_container {
@@ -27,7 +27,7 @@
 
 #all_maps {
   grid-row: 3;
-  height: 200px;
+  height: 20vh;
   z-index: 1;
 
   display: flex;
@@ -49,11 +49,11 @@
   position: sticky;
   top: 0;
 }
-
+/* 
 #smallmapdiv {
   width: 100px;
   height: 100px;
-}
+} */
 
 #bigmapdiv {
   width: 100vw;
