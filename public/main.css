@@ -42,9 +42,8 @@
   border-color: rgba(59, 132, 180, 1);
   height: 5vh;
   font-size: 2vh;
-  border-radius: .3em;
-  margin-right: .3em;
-
+  border-radius: 0.3em;
+  margin-right: 0.3em;
 }
 
 .card {
@@ -55,7 +54,6 @@
   display: inline-block;
   padding: 10px;
   background-color: rgba(59, 132, 180, 0.8);
-  
 }
 .card-image-top {
   width: 18vw;
@@ -66,9 +64,8 @@
 }
 
 .card-text {
-  font-size: .8em;
+  font-size: 0.8em;
   color: #ffffff;
-
 }
 .card-title {
   color: #ffffff;
@@ -76,13 +73,10 @@
 }
 .card:hover {
   box-shadow: 10px 10px 10px #555;
-
-
 }
 
 .card-body {
   padding: 2px 0 0 0;
-  
 }
 
 #page-header {
