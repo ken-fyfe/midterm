@@ -159,8 +159,8 @@ module.exports = db => {
   router.get("/pins", (req, res) => {
     return db
       .query(`
-      SELECT *
-      FROM pins;`)
+        SELECT *
+        FROM pins;`)
       .then(pinobj => {
         const pins = pinobj.rows;
         res.send({ pins });
