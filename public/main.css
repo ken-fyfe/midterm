@@ -54,3 +54,11 @@
   width: 100px;
   height: 100px;
 }
+
+#bigmapdiv {
+  width: 100vw;
+  height: 100vh;
+  z-index: 0;
+  position: relative;
+  left: 0px;
+}
