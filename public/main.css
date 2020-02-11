@@ -18,7 +18,7 @@
 
 #main-content {
   display: grid;
-  grid-template-rows: 600px 1fr;
+  grid-template-rows: 500px 1fr;
 }
 
 #maps_container {
@@ -27,20 +27,30 @@
 
 #all_maps {
   grid-row: 3;
-  height: 100px;
+  height: 200px;
   z-index: 1;
 
   display: flex;
   flex-wrap: nowrap;
   overflow-x: auto;
+  justify-content: space-evenly
 }
 
 .card {
+  display: inline-block;
+  padding: 10px;
   flex: 0 0 auto;
   width: 200px;
+  margin: 10px;
+  border: 2px solid black;
 }
 
 #page-header {
   position: sticky;
   top: 0;
+}
+
+#smallmapdiv {
+  width: 100px;
+  height: 100px;
 }
