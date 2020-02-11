@@ -14,10 +14,10 @@ $(() => {
       zoom_level: map.zoom_level
     };
     return `
-    <div class="card">
+    <div class="card" id="smallmapcard${n}">
 
     <div class="card-image-top mx-auto" id="smallmapdiv${n}">
-    <script>$('#smallmapdiv' + ${n}).on('click', () => {
+    <script>$('#smallmapcard${n}').on('click', () => {
     currentMap.update(${JSON.stringify(mapObject)})})
 
 </script>
