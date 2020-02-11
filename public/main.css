@@ -7,10 +7,12 @@
   left: 60px;
   position: absolute;
 }
+.navbar {
+  height: 7vh;
+}
 
 #map-current-location {
-  width: 100vw;
-  height: 100vh;
+  height: 93vh;
   z-index: 0;
   position: relative;
   left: 0px;
@@ -18,7 +20,7 @@
 
 #main-content {
   display: grid;
-  grid-template-rows: 70vh 1fr;
+  grid-template-rows: 60vh 1fr;
 }
 
 #maps_container {
@@ -27,28 +29,60 @@
 
 #all_maps {
   grid-row: 3;
-  height: 30vh;
+  height: 32vh;
   z-index: 1;
 
   display: flex;
   flex-wrap: nowrap;
   overflow-x: auto;
-  justify-content: space-evenly
+}
+
+.btn {
+  background-color: rgba(59, 132, 180, 1);
+  border-color: rgba(59, 132, 180, 1);
+  height: 5vh;
+  font-size: 2vh;
+  border-radius: .3em;
+  margin-right: .3em;
+
 }
 
 .card {
   width: 20vw;
+  height: 27vh;
   margin: 10px;
   flex: 0 0 auto;
   display: inline-block;
   padding: 10px;
+  background-color: rgba(59, 132, 180, 0.8);
   
 }
 .card-image-top {
-  width: 15vw;
+  width: 18vw;
   height: 15vh;
-  border: 2px solid black;
   border-radius: 5px;
+  padding-bottom: 1px;
+  opacity: 1;
+}
+
+.card-text {
+  font-size: .8em;
+  color: #ffffff;
+
+}
+.card-title {
+  color: #ffffff;
+  margin-bottom: 0px;
+}
+.card:hover {
+  box-shadow: 10px 10px 10px #555;
+
+
+}
+
+.card-body {
+  padding: 2px 0 0 0;
+  
 }
 
 #page-header {

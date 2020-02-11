@@ -29,8 +29,10 @@ $(() => {
     if (coodObj) {
       const lat = Number(coodObj.latitude);
       const long = Number(coodObj.longitude);
+      const zoomLevel = Number(coodObj.zoom_level)
 
-      map.flyTo([lat, long], 8);
+      map.flyTo([lat, long], zoomLevel, {duration: 5});
+
     }
   }
   window.currentMap.update = updateMap;

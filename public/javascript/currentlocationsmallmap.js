@@ -2,7 +2,9 @@ const currentLocationsmallmap = function(mapObject) {
   // const mapOb = JSON.parse(mapObject)
   const m = mapObject["number"];
 
-  const mymap = L.map(`smallmapdiv${m}`).setView(
+  const mymap = L.map(`smallmapdiv${m}`, { zoomControl: false }
+
+  ).setView(
     [mapObject.latitude, mapObject.longitude],
     mapObject.zoom_level
   );

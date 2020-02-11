@@ -16,7 +16,7 @@ $(() => {
     return `
     <div class="card">
 
-    <div class="card-image-top p-3 mx-auto" id="smallmapdiv${n}">
+    <div class="card-image-top mx-auto" id="smallmapdiv${n}">
     <script>$('#smallmapdiv' + ${n}).on('click', () => {
     currentMap.update(${JSON.stringify(mapObject)})})
 
