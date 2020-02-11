@@ -14,16 +14,22 @@ $(() => {
       zoom_level: map.zoom_level
     };
     return `
-    
-    <div class="card" id="smallmapdiv${n}">
+    <div class="card">
+
+    <div class="card-image-top p-3 mx-auto" id="smallmapdiv${n}">
     <script>$('#smallmapdiv' + ${n}).on('click', () => {
     currentMap.update(${JSON.stringify(mapObject)})})
 
 </script>
 <script>
       currentLocationsmallmap(${JSON.stringify(mapObject)});
-    </script>
+      </script>
+      </div>
+    <div class="card-body">
+    <h5 class="card-title">${map.title}</h5>
+    <p class="card-text">${map.description}</p>
         
+        </div>
         </div>
     `;
   }
