@@ -177,7 +177,7 @@ module.exports = db => {
         res.send({ pins });
       })
       .catch(e => res.send(e));
-  });
+  });     
 
   return router;
 };
