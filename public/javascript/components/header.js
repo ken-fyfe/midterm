@@ -51,9 +51,7 @@ $(() => {
         </div>
       </div>
       <nav class="navbar navbar-dark bg-dark">
-        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-          <span class="navbar-toggler-icon"></span>
-        </button>
+        
 <div class="headertext">Welcome ${user.username}</div>
 <button type="button" class="btn btn-primary logout_button">Log Out</button>
 
@@ -79,6 +77,7 @@ $(() => {
     logOut()
       .then(() => {
         header.update(null);
+        addmaps.update(null);
       })
       .then(getMyMaps)
       .then(function(json) {

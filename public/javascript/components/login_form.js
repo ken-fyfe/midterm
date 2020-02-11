@@ -52,6 +52,7 @@ $(() => {
           return;
         }
         header.update(json.user)
+        addmaps.update(json.user)
 
         }).then(getMyMaps)
         .then(function(json) {

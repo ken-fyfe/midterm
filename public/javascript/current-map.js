@@ -30,6 +30,7 @@ $(() => {
   map.on("locationfound", onLocationFound);
   map.on("locationerror", onLocationError);
   map.locate({ setView: true, maxZoom: 16 });
+  // L.Control.geocoder().addTo(map);
 
   getMyPins().then(pinArray => {
     console.log(pinArray.pins);

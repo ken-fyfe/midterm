@@ -52,7 +52,6 @@
   margin: 10px;
   flex: 0 0 auto;
   display: inline-block;
-  padding: 10px;
   background-color: rgba(59, 132, 180, 0.8);
 }
 .card-image-top {
@@ -61,15 +60,24 @@
   border-radius: 5px;
   padding-bottom: 1px;
   opacity: 1;
+  padding: 1em;
+  margin-top: 0.5em
+
 }
 
 .card-text {
   font-size: 0.8em;
   color: #ffffff;
+  padding: 0em 0.5em 0 0.5em;
+
+
+
 }
 .card-title {
   color: #ffffff;
   margin-bottom: 0px;
+  padding: 0.5em 0.5em 0 0.5em;
+
 }
 .card:hover {
   box-shadow: 10px 10px 10px #555;
@@ -95,4 +103,13 @@
   z-index: 0;
   position: relative;
   left: 0px;
+}
+
+#addmapsbutton {
+  height: 8vh;
+  width: 8vh;
+  z-index: 1;
+  position: absolute;
+  right: 2vh;
+  top: 2vh;
 }
