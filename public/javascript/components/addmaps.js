@@ -29,6 +29,7 @@ $(() => {
     updateButton(json.user);
   });
   $("#addmaps").on("click", () => {
-    views_manager.show("addmap_form");
+    $("#addMapAlert").show()
+    currentMap.addMap();
   });
 });

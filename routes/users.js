@@ -182,16 +182,36 @@ module.exports = db => {
   });
   router.post("/createMap", (req, res) => {
     const userId = req.session.userId;
+    const mapId = req.session.mapId;
     const map = req.body;
     // const mapValues = [userId, map["name"], map["desciption"], map["lat"], map["long"], map["zoom"]];
     const mapValues = [
-      userId,
       map["name"],
-      map["desciption"],
-      40.737,
-      -73.923,
-      8
+      map["desciption"], mapId
     ];
+
+    return db
+      .query(
+        `
+        UPDATE maps
+        SET title = $1, description = $2
+        WHERE id = $3
+       `, mapValues
+      )
+      .then(() => {
+        res.send(":hugging_face:");
+      })
+      .catch(e => res.send(e));
+  });
+
+  router.post("/addMap", (req, res) => {
+    const userId = req.session.userId;
+    const mapObject = req.body;
+    const lat = mapObject.lat
+    const lng = mapObject.lng
+    const zoomLevel = mapObject.zoomLevel;
+    console.log(lat, lng, zoomLevel)
+     const mapValues = [userId, 'name', 'desc', mapObject["lat"], mapObject["lng"], mapObject["zoomLevel"]];
 
     return db
       .query(
@@ -208,12 +228,13 @@ module.exports = db => {
           res.send({ error: "error" });
           return;
         }
-
-        console.log(req.session.userId, "cookie");
+        console.log(createdMap.rows[0]['id'], "createdMap");
+        req.session.mapId = createdMap.rows[0]['id'];
         res.send(":hugging_face:");
       })
       .catch(e => res.send(e));
   });
+
 
   router.post("/details", (req, res) => {
     const userId = req.session.userId;

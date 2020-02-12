@@ -29,7 +29,7 @@ $(() => {
     updateButton(json.user);
   });
   $("#dropPin").on("click", () => {
-      $(".alert").show()
+      $("#addPinAlert").show()
 currentMap.addPin()
   });
 });
