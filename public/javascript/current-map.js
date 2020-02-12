@@ -6,6 +6,13 @@ $(() => {
       data
     });
   }
+  function addMapToDb(data) {
+    return $.ajax({
+      method: "POST",
+      url: "/api/users/addMap",
+      data
+    });
+  }
 
   const getMyPins = function() {
     console.log("This is getMyPins");
@@ -83,11 +90,27 @@ $(() => {
       addPinToDb(coordsObject);
       views_manager.show("addpin_form");
       L.marker(e.latlng).addTo(map);
-      $(".alert").hide();
+      $("#addPinAlert").hide();
       map.off("click");
     });
   }
   window.currentMap.addPin = addPin;
+
+  function addMap() {
+    console.log('inside addMap');
+    map.on("click", function(e) {
+      const myCoords = e.latlng;
+      const zoomLevel  = map.getZoom();
+      coordsObject = {lat: myCoords.lat, lng: myCoords.lng, zoomLevel}
+      console.log(coordsObject);
+      addMapToDb(coordsObject);
+      views_manager.show("addmap_form");
+      L.marker(e.latlng).addTo(map);
+      $("#addMapAlert").hide();
+      map.off("click");
+    });
+  }
+  window.currentMap.addMap = addMap;
   updateMap();
 });
 

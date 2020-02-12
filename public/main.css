@@ -136,7 +136,15 @@
 }
 
 
-.alert {
+#addPinAlert {
+  position: absolute;
+  z-index: 1;
+  top: 2vh;
+  left: 10vh;
+  display: none;
+}
+
+#addMapAlert {
   position: absolute;
   z-index: 1;
   top: 2vh;
