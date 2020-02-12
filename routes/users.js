@@ -177,7 +177,34 @@ module.exports = db => {
         res.send({ pins });
       })
       .catch(e => res.send(e));
-  });     
+  });
+  router.post("/createMap", (req, res) => {
+    const userId = req.session.userId;
+    const map = req.body;
+    // const mapValues = [userId, map["name"], map["desciption"], map["lat"], map["long"], map["zoom"]];
+    const mapValues = [userId, map["name"], map["desciption"],40.737, -73.923, 8];
+
+    return db
+      .query(
+        `
+        INSERT INTO maps (
+          user_id, title, description, latitude, longitude, zoom_level)
+        VALUES (
+        $1, $2, $3, $4, $5, $6)
+        RETURNING *;`,
+        mapValues
+      )
+      .then(createdMap => {
+        if (!createdMap) {
+          res.send({ error: "error" });
+          return;
+        }
+
+        console.log(req.session.userId, "cookie");
+        res.send(":hugging_face:");
+      })
+      .catch(e => res.send(e));
+  });
 
   return router;
 };

@@ -1,19 +1,18 @@
 $(() => {
-    function logIn(data) {
-        //console.log("data",data)
-        return $.ajax({
-          method: "POST",
-          url: "/api/users/login",
-          data
-        });
-      }
-      function getMyMaps() {
-        console.log("getMyMaps");
-        return $.ajax({
-          url: "/api/users/maps",
-        });
-      }
-
+  function logIn(data) {
+    //console.log("data",data)
+    return $.ajax({
+      method: "POST",
+      url: "/api/users/login",
+      data
+    });
+  }
+  function getMyMaps() {
+    console.log("getMyMaps");
+    return $.ajax({
+      url: "/api/users/maps"
+    });
+  }
 
   const $logInForm = $(`
 <form class="signupform">
@@ -37,31 +36,25 @@ $(() => {
 </form>
   `);
   window.$logInForm = $logInForm;
-  $logInForm.on('submit', function(event) {
-
-      event.preventDefault();
-      const data = $(this).serialize();
+  $logInForm.on("submit", function(event) {
+    event.preventDefault();
+    const data = $(this).serialize();
 
     logIn(data)
       .then(json => {
-
         if (!json.user) {
-
-
-          views_manager.show('error', 'Failed to login');
+          views_manager.show("error", "Failed to login");
           return;
         }
-        header.update(json.user)
-        addmaps.update(json.user)
+        header.update(json.user);
+        addmaps.update(json.user);
+      })
+      .then(getMyMaps)
+      .then(function(json) {
+        console.log("maps", json);
+        all_maps.addMaps(json.maps);
 
-        }).then(getMyMaps)
-        .then(function(json) {
-          console.log('maps', json);
-          all_maps.addMaps(json.maps);
-
-
-        views_manager.show('allMaps');
+        views_manager.show("allMaps");
       });
   });
-
 });

@@ -73,6 +73,7 @@ $(() => {
   $("header").on("click", ".signup_button", () => {
     views_manager.show("signUp");
   });
+  
   $("header").on("click", ".logout_button", () => {
     logOut()
       .then(() => {

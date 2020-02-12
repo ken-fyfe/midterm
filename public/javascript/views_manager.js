@@ -7,6 +7,7 @@ $(() => {
     $signUp.detach();
     $loggedIn.detach();
     $all_maps.detach();
+    $createMapForm.detach();
 
     switch (item) {
       case 'logIn':
@@ -21,6 +22,9 @@ $(() => {
         case 'allMaps':
         $all_maps.appendTo($main);
         break;
+        case 'addmap_form':
+          $createMapForm.appendTo($main);
+          break;
     }
   };
 });
