@@ -8,6 +8,7 @@ $(() => {
     $loggedIn.detach();
     $all_maps.detach();
     $createMapForm.detach();
+    $createPinForm.detach();
 
     switch (item) {
       case 'logIn':
@@ -24,6 +25,9 @@ $(() => {
         break;
         case 'addmap_form':
           $createMapForm.appendTo($main);
+          break;
+          case 'addpin_form':
+          $createPinForm.appendTo($main);
           break;
     }
   };

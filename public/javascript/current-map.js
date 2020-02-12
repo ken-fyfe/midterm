@@ -13,6 +13,11 @@ $(() => {
       url: "/api/users/pins"
     });
   };
+  function getMyDetails() {
+    return $.ajax({
+      url: "/api/users/me"
+    });
+  }
   window.currentMap = {};
   const $currentMap = $("#maps-div");
 
@@ -59,8 +64,13 @@ $(() => {
       const lat = Number(coodObj.latitude);
       const long = Number(coodObj.longitude);
       const zoomLevel = Number(coodObj.zoom_level);
-
+      getMyDetails()
+      .then(function( json ) {
+      dropPin.update(json.user);
+    });
       map.flyTo([lat, long], zoomLevel, { duration: 5 });
+
+
     }
   }
   window.currentMap.update = updateMap;
@@ -71,6 +81,7 @@ $(() => {
       coordsObject = {lat: myCoords.lat, lng: myCoords.lng}
       console.log(coordsObject);
       addPinToDb(coordsObject);
+      views_manager.show("addpin_form");
       L.marker(e.latlng).addTo(map);
       $(".alert").hide();
       map.off("click");
