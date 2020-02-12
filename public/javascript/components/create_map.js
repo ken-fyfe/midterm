@@ -1,5 +1,5 @@
 $(() => {
-  
+ 
 
   window.mapList = {};
   function createMap(map, n) {
@@ -17,6 +17,14 @@ $(() => {
 
     <div class="card-image-top mx-auto" id="smallmapdiv${n}">
     <script>$('#smallmapcard${n}').on('click', () => {
+      function addMapIdCookie(data) {
+        return $.ajax({
+          method: "POST",
+          url: "/api/users/addMapId",
+          data
+        });
+      }
+      addMapIdCookie(${JSON.stringify(mapObject)})
     currentMap.update(${JSON.stringify(mapObject)})})
 
 </script>

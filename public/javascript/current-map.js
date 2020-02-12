@@ -1,8 +1,16 @@
 $(() => {
+  function addPinToDb(data) {
+    return $.ajax({
+      method: "POST",
+      url: "/api/users/addPin",
+      data
+    });
+  }
+
   const getMyPins = function() {
     console.log("This is getMyPins");
     return $.ajax({
-      url: "/api/users/pins",
+      url: "/api/users/pins"
     });
   };
   window.currentMap = {};
@@ -35,16 +43,17 @@ $(() => {
   getMyPins().then(pinArray => {
     console.log(pinArray.pins);
     for (let pin in pinArray.pins) {
-      console.log('pin: ', pin);
+      console.log("pin: ", pin);
       const mapLong = pinArray.pins[pin].longitude;
       const mapLat = pinArray.pins[pin].latitude;
       const mapTitle = pinArray.pins[pin].title;
       const mapDesc = pinArray.pins[pin].description;
-      console.log('mapLat :', mapLat);
+      console.log("mapLat :", mapLat);
       console.log(mapLong);
       L.marker([mapLat, mapLong])
-       .addTo(map)
-       .bindPopup(`<b>${mapTitle}</b><br />${mapDesc}`).openPopup();
+        .addTo(map)
+        .bindPopup(`<b>${mapTitle}</b><br />${mapDesc}`)
+        .openPopup();
     }
   });
 
@@ -52,26 +61,39 @@ $(() => {
     if (coodObj) {
       const lat = Number(coodObj.latitude);
       const long = Number(coodObj.longitude);
-      const zoomLevel = Number(coodObj.zoom_level)
+      const zoomLevel = Number(coodObj.zoom_level);
 
-      map.flyTo([lat, long], zoomLevel, {duration: 5});
-
+      map.flyTo([lat, long], zoomLevel, { duration: 5 });
     }
   }
   window.currentMap.update = updateMap;
 
-
   function addPin() {
-   map.on('click', 
-			function(e){
-				var coord = e.latlng.toString().split(',');
-				var lat = coord[0].split('(');
-				var lng = coord[1].split(')');
-				alert("You clicked the map at LAT: " + lat[1] + " and LONG: " + lng[0]);
-        L.marker(e.latlng).addTo(map);
-        $(".alert").hide()
-			});
+    map.on("click", function(e) {
+      const myCoords = e.latlng;
+      coordsObject = {lat: myCoords.lat, lng: myCoords.lng}
+      console.log(coordsObject);
+      addPinToDb(coordsObject);
+      L.marker(e.latlng).addTo(map);
+      $(".alert").hide();
+      map.off("click");
+    });
   }
   window.currentMap.addPin = addPin;
   updateMap();
 });
+
+// function addPin() {
+//   map.on("click", function(e) {
+//     var coord = e.latlng.toString().split(",");
+//     var lat = coord[0].split("(");
+//     var lng = coord[1].split(")");
+//     alert("You clicked the map at LAT: " + lat[1] + " and LONG: " + lng[0]);
+//     L.marker(e.latlng).addTo(map);
+//     var coordlatlng = e.latlng;
+//     console.log(coordlatlng);
+//     addPinToDb(coordlatlng);
+//     $(".alert").hide();
+//     map.off("click");
+//   });
+// }

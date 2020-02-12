@@ -259,5 +259,55 @@ module.exports = db => {
       })
       .catch(e => res.send(e));
   });
+
+  router.post("/addPin", (req, res) => {
+    console.log("inside pin")
+    pinObject =req.body;
+    const userId = req.session.userId;
+    const lat = pinObject.lat
+    const lng = pinObject.lng
+    console.log(lat, lng)
+    return db
+      .query(
+        `
+        INSERT INTO pins (
+          user_id, title, latitude, longitude, description, category)
+         VALUES($1, 'title', $2, $3, 'description', 'category')
+        RETURNING id;
+
+
+      `,[userId, lat, lng]).then(newPin => {
+        console.log(newPin.rows, "newPin")
+      })
+      .catch(e => res.send(e));
+
+      
+  });
+  // router.post("/addMapPin", (req, res) => {
+  //   console.log("inside pin")
+  //   pinObject =req.body;
+  //   mapId = req.session.mapId
+  //   if(!mapId) {mapId="-1"}
+  //   console.log(req.body)
+  //   return db
+  //     .query(
+  //       `
+  //       INSERT INTO map_id_pin_ids (map_id, pin_id)
+  //       VALUES($1,$2)
+  //       RETURNING *;
+
+
+  //     `,[pinObject, mapId])
+      
+      
+  // });
+
+  router.post("/addMapId", (req, res) => {
+    const userId = req.session.userId;
+    const mapId = req.body.mapId;
+    console.log(mapId, "mapId")
+    req.session.mapId = mapId
+    console.log(req.session.mapId)
+  })
   return router;
 };
