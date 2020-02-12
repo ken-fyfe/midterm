@@ -218,9 +218,7 @@ module.exports = db => {
   router.post("/details", (req, res) => {
     const userId = req.session.userId;
     const mapObject = req.body;
-    console.log("maoObject", mapObject);
     const mapValues = [userId, mapObject.mapId, true];
-    console.log(mapValues)
 
     return db
       .query(
@@ -242,10 +240,8 @@ module.exports = db => {
       .catch(e => res.send(e));
   });
   router.post("/likes", (req, res) => {
-    console.log("inside likes")
     mapObject =req.body;
     mapId =mapObject.mapId
-    console.log(req.body)
     return db
       .query(
         `
@@ -261,7 +257,6 @@ module.exports = db => {
   });
 
   router.post("/addPin", (req, res) => {
-    console.log("inside pin")
     pinObject =req.body;
     const userId = req.session.userId;
     const lat = pinObject.lat
@@ -278,29 +273,46 @@ module.exports = db => {
 
       `,[userId, lat, lng]).then(newPin => {
         console.log(newPin.rows, "newPin")
+        const newPinId = newPin.rows[0]['id'];
+        req.session.pinId = newPinId;
+        console.log(req.session, 'reqsession');
+        res.send('cookie added')
       })
       .catch(e => res.send(e));
 
-      
   });
-  // router.post("/addMapPin", (req, res) => {
-  //   console.log("inside pin")
-  //   pinObject =req.body;
-  //   mapId = req.session.mapId
-  //   if(!mapId) {mapId="-1"}
-  //   console.log(req.body)
-  //   return db
-  //     .query(
-  //       `
-  //       INSERT INTO map_id_pin_ids (map_id, pin_id)
-  //       VALUES($1,$2)
-  //       RETURNING *;
+
+  router.post("/createPin", (req, res) => {
+    pinObject = req.body;
+    pinId = req.session.pinId;
+    return db
+      .query(
+        `
+        UPDATE pins
+        SET title = $1, description = $2, category = $3
+        WHERE id = $4
+       `,[pinObject.name, pinObject.desciption, pinObject.category, pinId]).then(newPin => {
+    res.send('added new pin')
+  })
+  .catch(e => res.send(e));
+  });
+  router.post("/addMapPin", (req, res) => {
+    pinId =req.session.pinId;
+    mapId = req.session.mapId;
+    return db
+      .query(
+        `
+        INSERT INTO map_id_pin_ids (map_id, pin_id)
+        VALUES($1,$2)
+        RETURNING *;
+
+      `,[mapId, pinId]).then(() => {
+        res.send('added map pin')
+      })
+      .catch(e => res.send(e));
 
 
-  //     `,[pinObject, mapId])
-      
-      
-  // });
+  });
 
   router.post("/addMapId", (req, res) => {
     const userId = req.session.userId;
@@ -308,6 +320,7 @@ module.exports = db => {
     console.log(mapId, "mapId")
     req.session.mapId = mapId
     console.log(req.session.mapId)
+    res.send('cookied added')
   })
   return router;
 };
