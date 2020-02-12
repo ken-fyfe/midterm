@@ -1,8 +1,6 @@
 $(() => {
   const $all_maps = $(`
-  
-
-  <section class="all_maps" id="all_maps">
+    <section class="all_maps" id="all_maps">
       <p>Loading...</p>
     </section>
   `);
@@ -18,7 +16,6 @@ $(() => {
     clearMaps();
     for (let i = 0; i < maps.length; i++) {
       const mapObj = maps[i];
-
       const mapMarkUp = mapList.createMap(mapObj, i);
       addMap(mapMarkUp);
     }

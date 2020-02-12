@@ -14,10 +14,10 @@ $(() => {
     currentUser = user;
     $addmaps.find("#addmapsbutton").remove();
     let userButton;
-    if (!user) {
-      userButton = ``;
-    } else {
+    if (user) {
       userButton = `<img id="addmapsbutton" src="/images/newmap.png">`;
+    } else {
+      userButton = ``;
     }
 
     $addmaps.append(userButton);
