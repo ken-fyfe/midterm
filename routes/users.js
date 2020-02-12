@@ -169,9 +169,11 @@ module.exports = db => {
   // select pins from database
   router.get("/pins", (req, res) => {
     return db
-      .query(`
+      .query(
+        `
         SELECT *
-        FROM pins;`)
+        FROM pins;`
+      )
       .then(pinobj => {
         const pins = pinobj.rows;
         res.send({ pins });
@@ -182,7 +184,14 @@ module.exports = db => {
     const userId = req.session.userId;
     const map = req.body;
     // const mapValues = [userId, map["name"], map["desciption"], map["lat"], map["long"], map["zoom"]];
-    const mapValues = [userId, map["name"], map["desciption"],40.737, -73.923, 8];
+    const mapValues = [
+      userId,
+      map["name"],
+      map["desciption"],
+      40.737,
+      -73.923,
+      8
+    ];
 
     return db
       .query(
@@ -206,5 +215,49 @@ module.exports = db => {
       .catch(e => res.send(e));
   });
 
+  router.post("/details", (req, res) => {
+    const userId = req.session.userId;
+    const mapObject = req.body;
+    console.log("maoObject", mapObject);
+    const mapValues = [userId, mapObject.mapId, true];
+    console.log(mapValues)
+
+    return db
+      .query(
+        `
+        INSERT INTO map_user_likes (user_id, map_id, likes)
+        VALUES (
+        $1, $2, $3)
+        RETURNING *;`,
+        mapValues
+      )
+      .then(createdMap => {
+        if (!createdMap) {
+          res.send({ error: "error" });
+          return;
+        }
+
+        res.send(":hugging_face:");
+      })
+      .catch(e => res.send(e));
+  });
+  router.post("/likes", (req, res) => {
+    console.log("inside likes")
+    mapObject =req.body;
+    mapId =mapObject.mapId
+    console.log(req.body)
+    return db
+      .query(
+        `
+      SELECT COUNT(*) FROM map_user_likes WHERE map_id = $1 AND likes IS TRUE
+
+      `,[mapId])
+      .then(likesNumber => {
+        const likes = likesNumber.rows[0];
+        console.log(likes, "likes")
+        res.send({ likes });
+      })
+      .catch(e => res.send(e));
+  });
   return router;
 };

@@ -1,18 +1,17 @@
 $(() => {
+  
+
   window.mapList = {};
   function createMap(map, n) {
     const mapObject = {
+      mapId: map.id,
       latitude: map.latitude,
       longitude: map.longitude,
       zoom_level: map.zoom_level,
       number: n
     };
 
-    const bigMapObject = {
-      latitude: map.latitude,
-      longitude: map.longitude,
-      zoom_level: map.zoom_level
-    };
+  
     return `
     <div class="card" id="smallmapcard${n}">
 
@@ -26,9 +25,33 @@ $(() => {
       </script>
       </div>
     <div class="card-body">
-    <h5 class="card-title">${map.title}</h5>
+    <h5 class="card-title">${map.title} <img class="heart" id="heart${n}" src="/images/notlike.png">
+    </h5>
     <p class="card-text">${map.description}</p>
-        
+        <script>
+        function getMapDetails(data) {
+          return $.ajax({
+            method: "POST",
+            url: "/api/users/details",
+            data
+          });
+        }
+        function getMapLikes(data) {
+          return $.ajax({
+            method: "POST",
+            url: "/api/users/likes",
+            data
+          });
+        }
+        $('#heart${n}').click(function() {
+          $(this).attr("src", "/images/like.png");
+          getMapDetails(${JSON.stringify(mapObject)});
+           getMapLikes(${JSON.stringify(mapObject)})
+          .then((json) => {
+            console.log(json.likes.count, "data")
+            likes.update(json.likes.count)})
+        });</script>
+
         </div>
         </div>
     `;
