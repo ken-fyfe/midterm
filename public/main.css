@@ -62,7 +62,6 @@
   opacity: 1;
   padding: 1em;
   margin-top: 0.5em
-
 }
 
 .card-text {
@@ -70,14 +69,11 @@
   color: #ffffff;
   padding: 0em 0.5em 0 0.5em;
 
-
-
 }
 .card-title {
   color: #ffffff;
   margin-bottom: 0px;
   padding: 0.5em 0.5em 0 0.5em;
-
 }
 .card:hover {
   box-shadow: 10px 10px 10px #555;
@@ -91,7 +87,7 @@
   position: sticky;
   top: 0;
 }
-/* 
+/*
 #smallmapdiv {
   width: 100px;
   height: 100px;
@@ -112,6 +108,15 @@
   position: absolute;
   right: 2vh;
   top: 2vh;
+}
+
+#double-arrow-button {
+  height: 3vh;
+  width: 3vh;
+  z-index: 2;
+  position: fixed;
+  left: 2vh;
+  bottom: 0.5vh;
 }
 
 .heart {

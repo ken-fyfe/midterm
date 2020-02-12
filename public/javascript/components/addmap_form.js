@@ -14,29 +14,29 @@ $(() => {
   }
 
   const $createMapForm = $(`
-  <form class="signupform">
-  <div class="form-row align-items-center">
-    <div class="col-auto">
-      <label class="sr-only" for="inlineFormInput">Name</label>
-      <input type="name" name="name" class="form-control mb-2" id="inlineFormInput" placeholder="Map title">
-    </div>
-    <div class="col-auto">
-      <label class="sr-only" for="inlineFormInputGroup">Description</label>
-      <div class="input-group mb-2">
-        <input type="textarea" name="desciption" class="form-control"  placeholder="Map description">
+    <form class="signupform">
+      <div class="form-row align-items-center">
+        <div class="col-auto">
+          <label class="sr-only" for="inlineFormInput">Name</label>
+          <input type="name" name="name" class="form-control mb-2" id="inlineFormInput" placeholder="Map title">
+        </div>
+        <div class="col-auto">
+          <label class="sr-only" for="inlineFormInputGroup">Description</label>
+          <div class="input-group mb-2">
+            <input type="textarea" name="desciption" class="form-control"  placeholder="Map description">
+          </div>
+        </div>
+        <div class="col-auto">
+          <button type="submit" class="btn btn-primary mb-2">Create map</button>
+        </div>
       </div>
-    </div>
-    <div class="col-auto">
-      <button type="submit" class="btn btn-primary mb-2">Create map</button>
-    </div>
-  </div>
-</form>
+    </form>
   `);
   window.$createMapForm = $createMapForm;
   $createMapForm.on("submit", function(event) {
     event.preventDefault();
     const data = $(this).serialize();
-console.log("data",data)
+    console.log("data",data)
     createMap(data)
       .then(getMyMaps)
       .then(function(json) {
