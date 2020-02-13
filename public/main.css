@@ -194,7 +194,7 @@
   width: 15vh;
   z-index: 1;
   position: absolute;
-  right: 100vh;
-  top: 30vh;
+  right: 50%;
+  top: 40%;
   display: none;
 }
