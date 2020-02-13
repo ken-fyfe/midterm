@@ -22,6 +22,7 @@
     "ejs": "^2.6.2",
     "express": "^4.17.1",
     "leaflet-control-geocoder": "^1.11.0",
+    "leaflet-search": "^2.9.8",
     "morgan": "^1.9.1",
     "node-sass-middleware": "^0.11.0",
     "path": "^0.12.7",

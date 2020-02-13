@@ -10,7 +10,6 @@ $(() => {
   const $dropPin = $("#dropPin");
   let currentUser = null;
   function updateButton(user) {
-    console.log("update button");
     currentUser = user;
     $dropPin.find("#addpinbutton").remove();
     let userButton;
@@ -25,7 +24,6 @@ $(() => {
   window.dropPin.update = updateButton;
 
   getMyDetails().then(function(json) {
-    console.log(json, "inside button");
     updateButton(json.user);
   });
   $("#dropPin").on("click", () => {
