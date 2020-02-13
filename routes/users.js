@@ -259,9 +259,26 @@ module.exports = db => {
   router.post("/details", (req, res) => {
     const userId = req.session.userId;
     const mapObject = req.body;
-    const mapValues = [userId, mapObject.mapId, true];
+    const mapRow = [userId, Number(mapObject.mapId)];
 
+    console.log("mapValues", mapRow)
     return db
+    .query(`
+    SELECT count(id) FROM map_user_likes WHERE map_id = $2 AND user_id = $1;
+    
+    `, mapRow).then(num => {
+      console.log(num.rows[0].count, "here num")
+      const countNum = num.rows[0].count;
+      res.send({countNum})
+    }).catch(e => res.send(e))
+  })
+  router.post("/addUserLike", (req, res) => {
+    const userId = req.session.userId;
+    const mapObject = req.body;
+      console.log("inside details")
+      const mapValues = [userId, Number(mapObject.mapId), true];
+console.log(mapValues, "mapValues")
+      return db
       .query(
         `
         INSERT INTO map_user_likes (user_id, map_id, likes)
@@ -271,6 +288,7 @@ module.exports = db => {
         mapValues
       )
       .then(createdMap => {
+        console.log(createdMap, "createdmap")
         if (!createdMap) {
           res.send({ error: "error" });
           return;
@@ -279,16 +297,24 @@ module.exports = db => {
         res.send(":hugging_face:");
       })
       .catch(e => res.send(e));
-  });
+    
+  })
+
+  
+   
+
   router.post("/likes", (req, res) => {
-    mapObject =req.body;
-    mapId =mapObject.mapId
-    // userId = req.session.userId
+    // mapObject = req.body
+    mapId =  Number(mapObject.mapId)
+
+    console.log(mapId,"mapId")
+    userId = req.session.userId
+if (userId) {
+    console.log([mapId, userId], "likes here")
     return db
       .query(
         `
-      SELECT COUNT(*) FROM map_user_likes WHERE map_id = $1 AND likes IS TRUE 
-
+        SELECT COUNT(*) FROM map_user_likes WHERE map_id = $1 AND user_id NOT IN (SELECT user_id FROM maps WHERE id = $1);
       `,[mapId])
       .then(likesNumber => {
         const likes = likesNumber.rows[0];
@@ -296,6 +322,7 @@ module.exports = db => {
         res.send({ likes });
       })
       .catch(e => res.send(e));
+    }
   });
 
   router.post("/addPin", (req, res) => {

@@ -27,16 +27,18 @@ $(() => {
     return `
       <div class="card" id="smallmapcard${n}">
       <img class="heart" id="heart${n}" src="/images/notlike.png">
-      <div class="heart-text"  id="likesdiv${n}"><script>  function getMapLikes(data) {
+      <div class="heart-text"  id="likesdiv${n}"><script>  
+     
+      function getMapLikes(data) {
         return $.ajax({
           method: "POST",
           url: "/api/users/likes",
           data,
-        
         });
       }
         getMapLikes(${JSON.stringify(mapObject)}).then(json =>{
-          console.log(json)
+          console.log(json, "first")
+          
             $("#likesdiv${n}").text(json.likes.count)})</script></div>
             <h6 class="card-title">${
               map.title
@@ -54,30 +56,45 @@ $(() => {
          
           <p class="card-text">${map.description}</p>
           <script>
-            function getMapDetails(data) {
+          function getMapDetails(data) {
+            return $.ajax({
+              method: "POST",
+              url: "/api/users/details",
+              data
+            });
+          }
+            function addMapLike(data) {
               return $.ajax({
                 method: "POST",
-                url: "/api/users/details",
+                url: "/api/users/addUserLike",
                 data
               });
             }
 
             function getMapLikes(data) {
-              return $.ajax({
-                method: "POST",
-                url: "/api/users/likes",
-                data,
-              
-              });
-            }
+        return $.ajax({
+          method: "POST",
+          url: "/api/users/likes",
+          data,
+        });
+      }
+
+
             $('#heart${n}').click(function() {
-              $("#heart${n}").attr("src", "/images/like.png");
               getMapDetails(${JSON.stringify(mapObject)})
-             getMapLikes(${JSON.stringify(mapObject)}).then(json =>{    
-                    console.log(json)
+              .then(json =>
+                { console.log(Number(json.countNum), 'countNum')
+                  if(Number(json.countNum) === 0) {
+                  console.log("in hereee")
+              addMapLike(${JSON.stringify(mapObject)})
+              currentValue = $("#likesdiv${n}").val()
+   $("#likesdiv${n}").text(currentValue + 1)
+             } else {
+             getMapLikes(${JSON.stringify(mapObject)}).then(json =>{
+                    console.log(json, "in here again")
        $("#likesdiv${n}").text(json.likes.count)
-            })
-            
+            }) }
+          })
             })
           </script>
         </div>
@@ -86,3 +103,6 @@ $(() => {
   }
   window.mapList.createMap = createMap;
 });
+
+
+// $("#heart${n}").attr("src", "/images/like.png");
