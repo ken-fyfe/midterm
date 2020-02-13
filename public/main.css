@@ -21,7 +21,7 @@
 
 #main-content {
   display: grid;
-  grid-template-rows: 60vh 1fr;
+  grid-template-rows: 59vh 1fr;
 }
 
 #maps_container {
@@ -30,7 +30,7 @@
 
 #all_maps {
   grid-row: 3;
-  height: 32vh;
+  height: 33vh;
   z-index: 1;
 
   display: flex;
@@ -62,18 +62,28 @@
   padding-bottom: 1px;
   opacity: 1;
   padding: 1em;
-  margin-top: 0.5em
+  margin-top: 0.5em;
+  position: relative;
+  top: 2vh;
 }
+
+
 
 .card-text {
   font-size: 0.8em;
   color: #ffffff;
   padding: 0em 0.5em 0 0.5em;
+  position: relative;
+  top:  1vh;
+  left: 1vh;
 
 }
 .card-title {
   color: #ffffff;
   margin-bottom: 0px;
+  top: -.8vh;
+  left: 4vh;
+  position: absolute;
   padding: 0.5em 0.5em 0 0.5em;
 }
 
@@ -117,8 +127,13 @@
 }
 
 .heart {
+  display: block;
   height: 4vh;
   width: 4vh;
+  z-index: 1;
+  position: relative;
+  left: .4vh;
+  margin: -1.1em;
 }
 
 #addpinbutton {
@@ -136,4 +151,20 @@
   top: 2vh;
   left: 10vh;
   display: none;
+}
+
+#mapLikes {
+  font-size: 10px;
+}
+
+
+.heart-text {
+  display: inline-block;
+  position: absolute;
+    top: 0vh;
+    left: 1.4vh;
+    font-size: 1em;
+    color: #061a52;
+
+
 }
