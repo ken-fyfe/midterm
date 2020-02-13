@@ -32,7 +32,7 @@ $(() => {
           method: "POST",
           url: "/api/users/likes",
           data,
-        
+
         });
       }
         getMapLikes(${JSON.stringify(mapObject)}).then(json =>{
@@ -40,10 +40,11 @@ $(() => {
             $("#likesdiv${n}").text(json.likes.count)})</script></div>
             <h6 class="card-title">${
               map.title
-            } 
+            }
             </h6>
         <div class="card-image-top mx-auto" id="smallmapdiv${n}">
           <script>$('#smallmapdiv${n}').on('click', () => {
+            $('#aeroplaneImg').show();
             currentMap.update(${JSON.stringify(mapObject)})})
           </script>
           <script>
@@ -51,7 +52,7 @@ $(() => {
           </script>
         </div>
         <div class="card-body">
-         
+
           <p class="card-text">${map.description}</p>
           <script>
             function getMapDetails(data) {
@@ -67,17 +68,17 @@ $(() => {
                 method: "POST",
                 url: "/api/users/likes",
                 data,
-              
+
               });
             }
             $('#heart${n}').click(function() {
               $("#heart${n}").attr("src", "/images/like.png");
               getMapDetails(${JSON.stringify(mapObject)})
-             getMapLikes(${JSON.stringify(mapObject)}).then(json =>{    
+             getMapLikes(${JSON.stringify(mapObject)}).then(json =>{
                     console.log(json)
        $("#likesdiv${n}").text(json.likes.count)
             })
-            
+
             })
           </script>
         </div>

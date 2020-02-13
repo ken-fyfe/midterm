@@ -187,3 +187,13 @@
   right: 2vh;
   top: 21vh;
 }
+
+#aeroplaneImg {
+  height: 15vh;
+  width: 15vh;
+  z-index: 1;
+  position: absolute;
+  right: 100vh;
+  top: 30vh;
+  display: none;
+}
