@@ -287,10 +287,12 @@ console.log(mapValues, "mapValues")
 if (userId) {
     console.log([mapId, userId], "likes here")
     return db
-      .query(
-        `
-        SELECT COUNT(*) FROM map_user_likes WHERE map_id = $1;
-      `,[mapId])
+      .query(`
+        SELECT COUNT(*)
+        FROM map_user_likes
+        WHERE map_id = $1 AND likes IS TRUE `,
+        [mapId]
+      )
       .then(likesNumber => {
         const likes = likesNumber.rows[0];
         console.log(likes, "likes")
@@ -330,21 +332,20 @@ if (userId) {
     const lat = pinObject.lat;
     const lng = pinObject.lng;
     const pinTitle = pinObject.name;
-    const pinDesc = pinObject.desciption;
+    const pinDesc = pinObject.description;
     console.log('/createPin title :', pinTitle);
     console.log('/createPin desc :', pinDesc);
-    // L.marker([lat, lng])
-    //  .addTo(map)
-    //  .bindPopup(`<b>${pinTitle}</b><br />${pinDesc}`)
     return db
       .query(`
         UPDATE pins
         SET title = $1, description = $2, category = $3
-        WHERE id = $4`,
-        [pinObject.name, pinObject.desciption, pinObject.category, pinId]
+        WHERE id = $4 RETURNING *;`,
+        [pinObject.name, pinObject.description, pinObject.category, pinId]
       )
       .then(newPin => {
-        res.send('added new pin');
+        console.log('newPin.rows :', newPin.rows[0]);
+        const newPinObj = newPin.rows[0];
+        res.send({newPinObj});
       })
       .catch(e => res.send(e));
   });
