@@ -263,10 +263,11 @@ module.exports = db => {
   router.post("/likes", (req, res) => {
     mapObject =req.body;
     mapId =mapObject.mapId
+    // userId = req.session.userId
     return db
       .query(
         `
-      SELECT COUNT(*) FROM map_user_likes WHERE map_id = $1 AND likes IS TRUE
+      SELECT COUNT(*) FROM map_user_likes WHERE map_id = $1 AND likes IS TRUE 
 
       `,[mapId])
       .then(likesNumber => {
