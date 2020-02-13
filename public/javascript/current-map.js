@@ -43,6 +43,7 @@ $(() => {
   ).addTo(map);
   const onLocationFound = function(e) {
     L.marker(e.latlng).addTo(map);
+    console.log(e.latlng, 'location');
   };
   const onLocationError = function(e) {
     alert(e.message);
@@ -50,7 +51,7 @@ $(() => {
   map.on("locationfound", onLocationFound);
   map.on("locationerror", onLocationError);
   map.locate({ setView: true, maxZoom: 16 });
-  // L.Control.geocoder().addTo(map);
+
 
   getMyPins().then(pinArray => {
     console.log(pinArray.pins);
@@ -62,7 +63,6 @@ $(() => {
       L.marker([mapLat, mapLong])
         .addTo(map)
         .bindPopup(`<b>${mapTitle}</b><br />${mapDesc}`)
-        .openPopup();
     }
   });
 
@@ -86,7 +86,6 @@ $(() => {
     map.on("click", function(e) {
       const myCoords = e.latlng;
       coordsObject = {lat: myCoords.lat, lng: myCoords.lng}
-      console.log(coordsObject);
       addPinToDb(coordsObject);
       views_manager.show("addpin_form");
       L.marker(e.latlng).addTo(map);
@@ -97,12 +96,10 @@ $(() => {
   window.currentMap.addPin = addPin;
 
   function addMap() {
-    console.log('inside addMap');
     map.on("click", function(e) {
       const myCoords = e.latlng;
       const zoomLevel  = map.getZoom();
       coordsObject = {lat: myCoords.lat, lng: myCoords.lng, zoomLevel}
-      console.log(coordsObject);
       addMapToDb(coordsObject);
       views_manager.show("addmap_form");
       L.marker(e.latlng).addTo(map);
@@ -114,17 +111,4 @@ $(() => {
   updateMap();
 });
 
-// function addPin() {
-//   map.on("click", function(e) {
-//     var coord = e.latlng.toString().split(",");
-//     var lat = coord[0].split("(");
-//     var lng = coord[1].split(")");
-//     alert("You clicked the map at LAT: " + lat[1] + " and LONG: " + lng[0]);
-//     L.marker(e.latlng).addTo(map);
-//     var coordlatlng = e.latlng;
-//     console.log(coordlatlng);
-//     addPinToDb(coordlatlng);
-//     $(".alert").hide();
-//     map.off("click");
-//   });
-// }
+
