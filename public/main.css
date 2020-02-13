@@ -142,7 +142,7 @@
   z-index: 1;
   position: absolute;
   right: 2vh;
-  top: 12vh;
+  top: 30vh;
 }
 
 .alert {
@@ -167,4 +167,23 @@
     color: #061a52;
 
 
+}
+
+
+#allmapsbutton {
+  height: 8vh;
+  width: 8vh;
+  z-index: 1;
+  position: absolute;
+  right: 2vh;
+  top: 12vh;
+}
+
+#mymapsbutton {
+  height: 8vh;
+  width: 8vh;
+  z-index: 1;
+  position: absolute;
+  right: 2vh;
+  top: 21vh;
 }

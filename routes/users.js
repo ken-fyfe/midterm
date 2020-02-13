@@ -165,6 +165,26 @@ module.exports = db => {
       })
       .catch(e => res.send(e));
   });
+  router.get("/allmaps", (req, res) => {
+    const userId = req.session.userId;
+    console.log("inside maps", userId);
+    
+      return db
+        .query(
+          `
+          SELECT *
+          FROM maps;
+          `
+        )
+        .then(mapsData => {
+          const maps = mapsData.rows;
+          res.send({ maps });
+        })
+        .catch(e => res.send(e));
+    
+    
+  });
+
 
   // select pins from database
   router.get("/pins", (req, res) => {

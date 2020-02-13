@@ -81,6 +81,8 @@ $(() => {
         header.update(null);
         addmaps.update(null);
         dropPin.update(null);
+        allmaps.update(null);
+        mymaps.update(null);
       })
       .then(getMyMaps)
       .then(function(json) {
