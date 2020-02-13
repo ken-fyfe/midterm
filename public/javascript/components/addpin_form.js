@@ -25,7 +25,7 @@ $(() => {
         <div class="col-auto">
           <label class="sr-only" for="inlineFormInputGroup">Description</label>
           <div class="input-group mb-2">
-            <input type="textarea" name="desciption" class="form-control"  placeholder="Pin description">
+            <input type="textarea" name="description" class="form-control"  placeholder="Pin description">
           </div>
         </div>
         <div class="col-auto">
@@ -51,12 +51,25 @@ $(() => {
 
   // <input type="name" name="category" class="form-control"  placeholder="Pin category">
 
-    window.$createPinForm = $createPinForm;
+  window.$createPinForm = $createPinForm;
     $createPinForm.on("submit", function(event) {
       event.preventDefault();
       const data = $(this).serialize();
       console.log("data", data)
-      createPin(data).then(addMapPin)
+      createPin(data).then(json => {
+        currentMap.addPopup(json.newPinObj)
+      }).then(addMapPin)
       views_manager.show("allMaps");
     });
+
   });
+
+
+  // window.$createPinForm = $createPinForm;
+  // $createPinForm.on("submit", function(event) {
+  //   event.preventDefault();
+  //   const data = $(this).serialize();
+  //   console.log("data", data)
+  //   createPin(data).then(addMapPin)
+  //   views_manager.show("allMaps");
+  // });

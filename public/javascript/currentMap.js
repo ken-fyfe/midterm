@@ -108,5 +108,17 @@ $(() => {
     });
   }
   window.currentMap.addMap = addMap;
+
+  function addPopup(pinObj) {
+    console.log('pinObj :', pinObj);
+    desc = pinObj.description;
+    title = pinObj.title;
+    category = pinObj.category;
+    lat = pinObj.latitude;
+    lng = pinObj.longitude;
+    L.marker([lat, lng]).addTo(map).bindPopup(`<b>${title}</b><br />${desc}`)
+}
+window.currentMap.addPopup = addPopup;
+
   updateMap();
 });
