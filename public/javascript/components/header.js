@@ -24,7 +24,7 @@ $(() => {
     currentUser = user;
     $pageHeader.find("#page-header__user-links").remove();
     let userLinks;
-    if (!user) {
+    if (user) {
       userLinks = `
       <div class="pos-f-t" id="page-header__user-links">
         <div class="collapse" id="navbarToggleExternalContent">
@@ -34,14 +34,9 @@ $(() => {
           </div>
         </div>
         <nav class="navbar navbar-dark bg-dark">
-          <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarToggleExternalContent" aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-          </button>
-
-          <div>
-            <button type="button" class="btn btn-primary signup_button">Sign Up</button>
-            <button type="button" class="btn btn-primary login_button">Login</button>
-          </div>
+          <img id="logo" src="./images/aeroplane.png" width="50" height="50" alt="Concorde App">
+          <div class="headertext">Welcome ${user.username}</div>
+          <button type="button" class="btn btn-primary logout_button">Log Out</button>
         </nav>
       </div>`;
     } else {
@@ -54,12 +49,14 @@ $(() => {
           </div>
         </div>
         <nav class="navbar navbar-dark bg-dark">
-          <div class="headertext">Welcome ${user.username}</div>
-          <button type="button" class="btn btn-primary logout_button">Log Out</button>
+          <img src="./images/aeroplane.png" width="50" height="50" alt="Concorde App">
+          <div>
+            <button type="button" class="btn btn-primary signup_button">Sign Up</button>
+            <button type="button" class="btn btn-primary login_button">Login</button>
+          </div>
         </nav>
       </div>`;
     }
-
     $pageHeader.append(userLinks);
   }
   window.header.update = updateHeader;
@@ -87,7 +84,6 @@ $(() => {
       .then(getMyMaps)
       .then(function(json) {
         all_maps.addMaps(json.maps);
-
         views_manager.show("allMaps");
       });
   });

@@ -4,8 +4,7 @@
  *   these routes are mounted onto /users
  * See: https://expressjs.com/en/guide/using-middleware.html#middleware.router
  */
-const database = require("../server/database.js");
-
+// const database = require("../server/database.js");
 const bcrypt = require("bcrypt");
 const express = require("express");
 const router = express.Router();
@@ -26,10 +25,8 @@ module.exports = db => {
     const user = req.body;
     user.password = bcrypt.hashSync(user.password, 12);
     const userValues = [user["username"], user["email"], user["password"]];
-
     return db
-      .query(
-        `
+      .query(`
         INSERT INTO users (
         username, email, password)
         VALUES (
@@ -58,12 +55,10 @@ module.exports = db => {
   //check if a registered user exists by comparing password with hashed password
   const login = function(email, password) {
     return db
-      .query(
-        `
-          SELECT *
-          FROM users
-          WHERE email = $1;
-          `,
+      .query(`
+        SELECT *
+        FROM users
+        WHERE email = $1;`,
         [email]
       )
       .then(res => {
@@ -89,7 +84,6 @@ module.exports = db => {
           return;
         }
         req.session.userId = user.id;
-
         res.send({ user });
       })
       .catch(e => res.send(e));
@@ -104,16 +98,13 @@ module.exports = db => {
     const userId = req.session.userId;
     if (!userId) {
       res.send({ message: "not logged in" });
-
       return;
     }
     return db
-      .query(
-        `
+      .query(`
         SELECT *
         FROM users
-        WHERE id = $1;
-        `,
+        WHERE id = $1;`,
         [userId]
       )
       .then(user1 => {
@@ -121,7 +112,6 @@ module.exports = db => {
           res.send({ error: "no user with that id" });
           return;
         }
-
         const userobj = {
           password: user1.rows[0].password,
           username: user1.rows[0].username,
@@ -137,60 +127,48 @@ module.exports = db => {
     const userId = req.session.userId;
     console.log("inside maps", userId);
     if (!userId) {
-      return db
-        .query(
-          `
-          SELECT *
-          FROM maps;
-          `
-        )
-        .then(mapsData => {
-          const maps = mapsData.rows;
-          res.send({ maps });
-        })
-        .catch(e => res.send(e));
-    }
     return db
-      .query(
-        `
+      .query(`
         SELECT *
-        FROM maps
-        WHERE user_id = $1;
-        `,
-        [userId]
+        FROM maps;`
       )
       .then(mapsData => {
         const maps = mapsData.rows;
         res.send({ maps });
       })
       .catch(e => res.send(e));
+    }
+    return db
+      .query(`
+      SELECT *
+      FROM maps
+      WHERE user_id = $1;`,
+      [userId]
+    )
+    .then(mapsData => {
+      const maps = mapsData.rows;
+      res.send({ maps });
+    })
+    .catch(e => res.send(e));
   });
   router.get("/allmaps", (req, res) => {
     const userId = req.session.userId;
-    console.log("inside maps", userId);
-    
-      return db
-        .query(
-          `
-          SELECT *
-          FROM maps;
-          `
-        )
-        .then(mapsData => {
-          const maps = mapsData.rows;
-          res.send({ maps });
-        })
-        .catch(e => res.send(e));
-    
-    
-  });
-
+    return db
+      .query(`
+        SELECT *
+        FROM maps;`
+      )
+      .then(mapsData => {
+        const maps = mapsData.rows;
+        res.send({ maps });
+      })
+      .catch(e => res.send(e));
+    });
 
   // select pins from database
   router.get("/pins", (req, res) => {
     return db
-      .query(
-        `
+      .query(`
         SELECT *
         FROM pins;`
       )
@@ -200,23 +178,21 @@ module.exports = db => {
       })
       .catch(e => res.send(e));
   });
+
   router.post("/createMap", (req, res) => {
     const userId = req.session.userId;
     const mapId = req.session.mapId;
     const map = req.body;
-    // const mapValues = [userId, map["name"], map["desciption"], map["lat"], map["long"], map["zoom"]];
     const mapValues = [
       map["name"],
       map["desciption"], mapId
     ];
-
     return db
-      .query(
-        `
+      .query(`
         UPDATE maps
         SET title = $1, description = $2
-        WHERE id = $3
-       `, mapValues
+        WHERE id = $3`,
+        mapValues
       )
       .then(() => {
         res.send(":hugging_face:");
@@ -230,14 +206,12 @@ module.exports = db => {
     const lat = mapObject.lat
     const lng = mapObject.lng
     const zoomLevel = mapObject.zoomLevel;
-    console.log(lat, lng, zoomLevel)
-     const mapValues = [userId, 'name', 'desc', mapObject["lat"], mapObject["lng"], mapObject["zoomLevel"]];
+    const mapValues = [userId, 'name', 'desc', mapObject["lat"], mapObject["lng"], mapObject["zoomLevel"]];
 
     return db
-      .query(
-        `
+      .query(`
         INSERT INTO maps (
-          user_id, title, description, latitude, longitude, zoom_level)
+        user_id, title, description, latitude, longitude, zoom_level)
         VALUES (
         $1, $2, $3, $4, $5, $6)
         RETURNING *;`,
@@ -255,15 +229,12 @@ module.exports = db => {
       .catch(e => res.send(e));
   });
 
-
   router.post("/details", (req, res) => {
     const userId = req.session.userId;
     const mapObject = req.body;
     const mapValues = [userId, mapObject.mapId, true];
-
     return db
-      .query(
-        `
+      .query(`
         INSERT INTO map_user_likes (user_id, map_id, likes)
         VALUES (
         $1, $2, $3)
@@ -275,21 +246,20 @@ module.exports = db => {
           res.send({ error: "error" });
           return;
         }
-
         res.send(":hugging_face:");
       })
       .catch(e => res.send(e));
   });
+
   router.post("/likes", (req, res) => {
     mapObject =req.body;
     mapId =mapObject.mapId
     // userId = req.session.userId
     return db
-      .query(
-        `
-      SELECT COUNT(*) FROM map_user_likes WHERE map_id = $1 AND likes IS TRUE 
-
-      `,[mapId])
+      .query(`
+        SELECT COUNT(*) FROM map_user_likes WHERE map_id = $1 AND likes IS TRUE `,
+        [mapId]
+      )
       .then(likesNumber => {
         const likes = likesNumber.rows[0];
         console.log(likes, "likes")
@@ -301,59 +271,63 @@ module.exports = db => {
   router.post("/addPin", (req, res) => {
     pinObject =req.body;
     const userId = req.session.userId;
-    const lat = pinObject.lat
-    const lng = pinObject.lng
-    console.log(lat, lng)
+    const lat = pinObject.lat;
+    const lng = pinObject.lng;
     return db
-      .query(
-        `
+      .query(`
         INSERT INTO pins (
-          user_id, title, latitude, longitude, description, category)
-         VALUES($1, 'title', $2, $3, 'description', 'category')
-        RETURNING id;
-
-
-      `,[userId, lat, lng]).then(newPin => {
-        console.log(newPin.rows, "newPin")
+        user_id, title, latitude, longitude, description, category)
+        VALUES($1, 'title', $2, $3, 'description', 'category')
+        RETURNING id;`,
+        [userId, lat, lng]
+      )
+      .then(newPin => {
         const newPinId = newPin.rows[0]['id'];
         req.session.pinId = newPinId;
-        console.log(req.session, 'reqsession');
-        res.send('cookie added')
+        res.send('cookie added');
       })
       .catch(e => res.send(e));
-
   });
 
   router.post("/createPin", (req, res) => {
     pinObject = req.body;
     pinId = req.session.pinId;
+    const lat = pinObject.lat;
+    const lng = pinObject.lng;
+    const pinTitle = pinObject.name;
+    const pinDesc = pinObject.desciption;
+    console.log('/createPin title :', pinTitle);
+    console.log('/createPin desc :', pinDesc);
+    // L.marker([lat, lng])
+    //  .addTo(map)
+    //  .bindPopup(`<b>${pinTitle}</b><br />${pinDesc}`)
     return db
-      .query(
-        `
+      .query(`
         UPDATE pins
         SET title = $1, description = $2, category = $3
-        WHERE id = $4
-       `,[pinObject.name, pinObject.desciption, pinObject.category, pinId]).then(newPin => {
-    res.send('added new pin')
-  })
-  .catch(e => res.send(e));
+        WHERE id = $4`,
+        [pinObject.name, pinObject.desciption, pinObject.category, pinId]
+      )
+      .then(newPin => {
+        res.send('added new pin');
+      })
+      .catch(e => res.send(e));
   });
+
   router.post("/addMapPin", (req, res) => {
     pinId =req.session.pinId;
     mapId = req.session.mapId;
     return db
-      .query(
-        `
+      .query(`
         INSERT INTO map_id_pin_ids (map_id, pin_id)
         VALUES($1,$2)
-        RETURNING *;
-
-      `,[mapId, pinId]).then(() => {
+        RETURNING *;`,
+        [mapId, pinId]
+      )
+      .then(() => {
         res.send('added map pin')
       })
       .catch(e => res.send(e));
-
-
   });
 
   router.post("/addMapId", (req, res) => {

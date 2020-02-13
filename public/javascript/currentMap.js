@@ -15,7 +15,6 @@ $(() => {
   }
 
   const getMyPins = function() {
-    console.log("This is getMyPins");
     return $.ajax({
       url: "/api/users/pins"
     });
@@ -28,7 +27,6 @@ $(() => {
   window.currentMap = {};
   const $currentMap = $("#maps-div");
 
-  // const map = new L.Map('map-current-location', {zoom: 9, center: new L.latLng([41.575730,13.002411]) });
   const map = new L.Map('map-current-location', { zoom: 9 });
 	map.addLayer(new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'));	//base layer
 
@@ -37,32 +35,33 @@ $(() => {
 		jsonpParam: 'json_callback',
 		propertyName: 'display_name',
 		propertyLoc: ['lat','lon'],
-		marker: L.circleMarker([0,0],{radius:30}),
+		marker: L.circleMarker([0, 0], {radius: 30}),
 		autoCollapse: true,
 		autoType: false,
 		minLength: 2
-	}));
+  }));
+
   const onLocationFound = function(e) {
     L.marker(e.latlng).addTo(map);
-    console.log(e.latlng, 'location');
   };
+
   const onLocationError = function(e) {
     alert(e.message);
   };
+
   map.on("locationfound", onLocationFound);
   map.on("locationerror", onLocationError);
   map.locate({ setView: true, maxZoom: 16 });
 
   getMyPins().then(pinArray => {
-    console.log(pinArray.pins);
     for (let pin in pinArray.pins) {
-      const mapLong = pinArray.pins[pin].longitude;
-      const mapLat = pinArray.pins[pin].latitude;
-      const mapTitle = pinArray.pins[pin].title;
-      const mapDesc = pinArray.pins[pin].description;
-      L.marker([mapLat, mapLong])
-        .addTo(map)
-        .bindPopup(`<b>${mapTitle}</b><br />${mapDesc}`)
+      const pinLat = pinArray.pins[pin].latitude;
+      const pinLong = pinArray.pins[pin].longitude;
+      const pinTitle = pinArray.pins[pin].title;
+      const pinDesc = pinArray.pins[pin].description;
+      L.marker([pinLat, pinLong])
+       .addTo(map)
+       .bindPopup(`<b>${pinTitle}</b><br />${pinDesc}`)
     }
   });
 
@@ -73,14 +72,13 @@ $(() => {
       const zoomLevel = Number(coodObj.zoom_level);
       getMyDetails()
       .then(function( json ) {
-      dropPin.update(json.user);
-    });
-    setTimeout(function() {
-      $('#aeroplaneImg').hide();
-  }, 5000);
+        dropPin.update(json.user);
+      });
+      setTimeout(function() {
+        $('#aeroplaneImg').hide();
+      }, 5000);
       map.flyTo([lat, long], zoomLevel, { duration: 5 });
     }
-
   }
   window.currentMap.update = updateMap;
 
