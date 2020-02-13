@@ -76,6 +76,7 @@
   margin-bottom: 0px;
   padding: 0.5em 0.5em 0 0.5em;
 }
+
 .card:hover {
   box-shadow: 10px 10px 10px #555;
 }
@@ -88,11 +89,6 @@
   position: sticky;
   top: 0;
 }
-/*
-#smallmapdiv {
-  width: 100px;
-  height: 100px;
-} */
 
 #bigmapdiv {
   width: 100vw;
@@ -125,7 +121,6 @@
   width: 4vh;
 }
 
-
 #addpinbutton {
   height: 8vh;
   width: 8vh;
@@ -135,16 +130,7 @@
   top: 12vh;
 }
 
-
-#addPinAlert {
-  position: absolute;
-  z-index: 1;
-  top: 2vh;
-  left: 10vh;
-  display: none;
-}
-
-#addMapAlert {
+.alert {
   position: absolute;
   z-index: 1;
   top: 2vh;

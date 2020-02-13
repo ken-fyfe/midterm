@@ -28,19 +28,20 @@ $(() => {
   window.currentMap = {};
   const $currentMap = $("#maps-div");
 
-  const map = L.map("map-current-location");
+  // const map = new L.Map('map-current-location', {zoom: 9, center: new L.latLng([41.575730,13.002411]) });
+  const map = new L.Map('map-current-location', { zoom: 9 });
+	map.addLayer(new L.TileLayer('http://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png'));	//base layer
 
-  L.tileLayer(
-    "https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw",
-    {
-      maxZoom: 18,
-      attribution:
-        'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors, ' +
-        '<a href="https://creativecommons.org/licenses/by-sa/2.0/">CC-BY-SA</a>, ' +
-        'Imagery © <a href="https://www.mapbox.com/">Mapbox</a>',
-      id: "mapbox/streets-v11"
-    }
-  ).addTo(map);
+  map.addControl( new L.Control.Search({
+		url: 'https://nominatim.openstreetmap.org/search?format=json&q={s}',
+		jsonpParam: 'json_callback',
+		propertyName: 'display_name',
+		propertyLoc: ['lat','lon'],
+		marker: L.circleMarker([0,0],{radius:30}),
+		autoCollapse: true,
+		autoType: false,
+		minLength: 2
+	}));
   const onLocationFound = function(e) {
     L.marker(e.latlng).addTo(map);
     console.log(e.latlng, 'location');
@@ -51,7 +52,6 @@ $(() => {
   map.on("locationfound", onLocationFound);
   map.on("locationerror", onLocationError);
   map.locate({ setView: true, maxZoom: 16 });
-
 
   getMyPins().then(pinArray => {
     console.log(pinArray.pins);
@@ -76,8 +76,6 @@ $(() => {
       dropPin.update(json.user);
     });
       map.flyTo([lat, long], zoomLevel, { duration: 5 });
-
-
     }
   }
   window.currentMap.update = updateMap;
@@ -110,5 +108,3 @@ $(() => {
   window.currentMap.addMap = addMap;
   updateMap();
 });
-
-

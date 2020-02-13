@@ -10,7 +10,6 @@ $(() => {
   const $addmaps = $("#addmaps");
   let currentUser = null;
   function updateButton(user) {
-    console.log("update button");
     currentUser = user;
     $addmaps.find("#addmapsbutton").remove();
     let userButton;
