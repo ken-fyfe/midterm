@@ -38,6 +38,7 @@ $(() => {
   $logInForm.on("submit", function(event) {
     event.preventDefault();
     const data = $(this).serialize();
+    console.log(data)
 
     logIn(data)
       .then(json => {
@@ -49,6 +50,8 @@ $(() => {
         addmaps.update(json.user);
         allmaps.update(json.user);
         mymaps.update(json.user);
+        myfavs.update(json.user);
+        mycollabs.update(json.user);
       })
       .then(getMyMaps)
       .then(function(json) {

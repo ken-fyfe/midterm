@@ -80,6 +80,8 @@ $(() => {
         dropPin.update(null);
         allmaps.update(null);
         mymaps.update(null);
+        myfavs.update(null);
+        mycollabs.update(null);
       })
       .then(getMyMaps)
       .then(function(json) {
