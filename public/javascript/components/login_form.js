@@ -38,6 +38,7 @@ $(() => {
   $logInForm.on("submit", function(event) {
     event.preventDefault();
     const data = $(this).serialize();
+    $('input').val('');
     console.log(data)
 
     logIn(data)
