@@ -34,7 +34,7 @@ $(() => {
           </div>
         </div>
         <nav class="navbar navbar-dark bg-dark">
-          <img id="logo" src="./images/aeroplane.png" width="50" height="50" alt="Concorde App">
+          <img id="logo" src="./images/aeroplane.png" alt="Concorde App">
           <div class="headertext">Welcome ${user.username}</div>
           <button type="button" class="btn btn-primary logout_button">Log Out</button>
         </nav>
@@ -49,7 +49,7 @@ $(() => {
           </div>
         </div>
         <nav class="navbar navbar-dark bg-dark">
-          <img src="./images/aeroplane.png" width="50" height="50" alt="Concorde App">
+          <img id="logo" src="./images/aeroplane.png" alt="Concorde App">
           <div>
             <button type="button" class="btn btn-primary signup_button">Sign Up</button>
             <button type="button" class="btn btn-primary login_button">Login</button>

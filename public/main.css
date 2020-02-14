@@ -198,3 +198,8 @@
   top: 40%;
   display: none;
 }
+
+#logo {
+  height: 5vh;
+  width: 5vh;
+}

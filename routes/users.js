@@ -140,37 +140,31 @@ module.exports = db => {
     }
     return db
       .query(`
-      SELECT *
-      FROM maps
-      WHERE user_id = $1;`,
-      [userId]
-    )
-    .then(mapsData => {
-      const maps = mapsData.rows;
-      res.send({ maps });
-    })
-    .catch(e => res.send(e));
+        SELECT *
+        FROM maps
+        WHERE user_id = $1;`,
+        [userId]
+      )
+      .then(mapsData => {
+        const maps = mapsData.rows;
+        res.send({ maps });
+      })
+      .catch(e => res.send(e)
+    );
   });
   router.get("/allmaps", (req, res) => {
     const userId = req.session.userId;
-    console.log("inside maps", userId);
-
       return db
-        .query(
-          `
+        .query(`
           SELECT *
-          FROM maps;
-          `
+          FROM maps;`
         )
         .then(mapsData => {
           const maps = mapsData.rows;
           res.send({ maps });
         })
         .catch(e => res.send(e));
-
-
   });
-
 
   // select pins from database
   router.get("/pins", (req, res) => {
@@ -214,7 +208,6 @@ module.exports = db => {
     const lng = mapObject.lng
     const zoomLevel = mapObject.zoomLevel;
     const mapValues = [userId, 'name', 'desc', mapObject["lat"], mapObject["lng"], mapObject["zoomLevel"]];
-
     return db
       .query(`
         INSERT INTO maps (
@@ -241,25 +234,23 @@ module.exports = db => {
     const mapObject = req.body;
       console.log("inside userLikes")
       const mapValues = [userId, Number(mapObject.mapId), true];
-console.log(mapValues, "mapValues")
       return db
-      .query(
-        `
-        INSERT INTO map_user_likes (user_id, map_id, likes)
-        VALUES (
-        $1, $2, $3)
-        RETURNING *;`,
-        mapValues
-      )
-      .then(createdMap => {
-        console.log(createdMap, "createdmap")
-        if (!createdMap) {
-          res.send({ error: "error" });
-          return;
-        }
-        res.send(":hugging_face:");
-      })
-      .catch(e => res.send(e));
+        .query(`
+          INSERT INTO map_user_likes (user_id, map_id, likes)
+          VALUES (
+          $1, $2, $3)
+          RETURNING *;`,
+          mapValues
+        )
+        .then(createdMap => {
+          console.log(createdMap, "createdmap")
+          if (!createdMap) {
+            res.send({ error: "error" });
+            return;
+          }
+          res.send(":hugging_face:");
+        })
+        .catch(e => res.send(e));
   })
 
 
@@ -270,8 +261,12 @@ console.log(mapValues, "mapValues")
     console.log("mapValues", mapRow)
     return db
     .query(`
-    SELECT count(*) FROM map_user_likes WHERE map_id = $2 AND user_id = $1;
-    `, mapRow).then(num => {
+      SELECT count(*)
+      FROM map_user_likes
+      WHERE map_id = $2 AND user_id = $1;`,
+      mapRow
+    )
+    .then(num => {
       console.log(num.rows);
       console.log(num.rows[0].count, "here num")
       const countNum = num.rows[0].count;
@@ -284,21 +279,21 @@ console.log(mapValues, "mapValues")
     mapId =  Number(mapObject.mapId)
     console.log(mapId,"mapId")
     userId = req.session.userId
-if (userId) {
-    console.log([mapId, userId], "likes here")
-    return db
-      .query(
-        `
-        SELECT COUNT(*) FROM map_user_likes WHERE map_id = $1;
-      `,[mapId])
-      .then(likesNumber => {
-        const likes = likesNumber.rows[0];
-        console.log(likes, "likes")
-        res.send({ likes });
-      })
-      .catch(e => res.send(e));
-    }
-    else {
+    if (userId) {
+      return db
+        .query(`
+          SELECT COUNT(*)
+          FROM map_user_likes
+          WHERE map_id = $1;`,
+          [mapId]
+        )
+        .then(likesNumber => {
+          const likes = likesNumber.rows[0];
+          console.log(likes, "likes")
+          res.send({ likes });
+        })
+        .catch(e => res.send(e));
+    } else {
       res.send('not logged in')
     }
   });
