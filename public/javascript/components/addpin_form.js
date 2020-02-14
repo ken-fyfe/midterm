@@ -54,6 +54,7 @@ $(() => {
     window.$createPinForm = $createPinForm;
     $createPinForm.on("submit", function(event) {
       event.preventDefault();
+      $('input').val('');
       const data = $(this).serialize();
       console.log("data", data)
       createPin(data).then(json => {

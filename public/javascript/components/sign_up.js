@@ -41,6 +41,7 @@ function getMyDetails() {
   window.$signUp = $signUp;
   $signUp.on('submit', function(event) {
     event.preventDefault();
+    $('input').val('');
     const data = $(this).serialize();
     console.log("data", data)
     signUp(data)
