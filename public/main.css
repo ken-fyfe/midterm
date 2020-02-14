@@ -141,7 +141,7 @@
   z-index: 1;
   position: absolute;
   right: 2vh;
-  top: 30vh;
+  top: 39vh;
 }
 
 .alert {
@@ -187,6 +187,15 @@
   position: absolute;
   right: 2vh;
   top: 21vh;
+}
+
+#myfavsbutton {
+  height: 8vh;
+  width: 8vh;
+  z-index: 1;
+  position: absolute;
+  right: 2vh;
+  top: 30vh;
 }
 
 #aeroplaneImg {
