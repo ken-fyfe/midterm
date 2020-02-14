@@ -70,8 +70,18 @@ $(() => {
             }
             </h6>
         <div class="card-image-top mx-auto" id="smallmapdiv${n}">
-          <script>$('#smallmapdiv${n}').on('click', () => {
+          <script>
+          function setMapId(data) {
+            return $.ajax({
+              method: "POST",
+              url: "/api/users/setMapId",
+              data
+            });
+          }
+
+          $('#smallmapdiv${n}').on('click', () => {
             $('#aeroplaneImg').show();
+            setMapId(${JSON.stringify(mapObject)})
             currentMap.update(${JSON.stringify(mapObject)})})
           </script>
           <script>

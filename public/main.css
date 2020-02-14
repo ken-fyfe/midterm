@@ -144,6 +144,15 @@
   top: 39vh;
 }
 
+#addpinbutton {
+  height: 8vh;
+  width: 8vh;
+  z-index: 1;
+  position: absolute;
+  right: 2vh;
+  top: 48vh;
+}
+
 .alert {
   position: absolute;
   z-index: 1;
@@ -196,6 +205,15 @@
   position: absolute;
   right: 2vh;
   top: 30vh;
+}
+
+#mycollabsbutton {
+  height: 8vh;
+  width: 8vh;
+  z-index: 1;
+  position: absolute;
+  right: 2vh;
+  top: 39vh;
 }
 
 #aeroplaneImg {
