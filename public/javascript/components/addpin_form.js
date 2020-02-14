@@ -54,12 +54,16 @@ $(() => {
     window.$createPinForm = $createPinForm;
     $createPinForm.on("submit", function(event) {
       event.preventDefault();
-      $('input').val('');
+      if($(':input[type=name]').val() === ''||$(':input[type=textarea]').val()=== ''){
+        alert('This form cannot be blank!')
+      } else {
       const data = $(this).serialize();
       console.log("data", data)
       createPin(data).then(json => {
         currentMap.addPopup(json.newPinObj)
       }).then(addMapPin)
       views_manager.show("allMaps");
+      $('input').val('');
+    }
     });
   });

@@ -1,6 +1,5 @@
 $(() => {
 
-
 function getMyDetails() {
 
   return $.ajax({
@@ -41,7 +40,9 @@ function getMyDetails() {
   window.$signUp = $signUp;
   $signUp.on('submit', function(event) {
     event.preventDefault();
-    $('input').val('');
+    if($(':input[type=username]').val() === ''||$(':input[type=email]').val() === ''||$(':input[type=password]').val()=== ''){
+      alert('this form cannot be blank!')
+    } else {
     const data = $(this).serialize();
     console.log("data", data)
     signUp(data)
@@ -51,7 +52,8 @@ function getMyDetails() {
         header.update(json.user);
         views_manager.show('loggedIn');
       });
-
+      $('input').val('')
+    }
 
 })
 

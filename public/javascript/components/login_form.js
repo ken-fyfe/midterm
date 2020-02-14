@@ -38,12 +38,15 @@ $(() => {
   $logInForm.on("submit", function(event) {
     event.preventDefault();
     const data = $(this).serialize();
-    $('input').val('');
+    if($(':input[type=email]').val() === ''||$(':input[type=password]').val()=== ''){
+      alert('This form cannot be blank!')
+    } else {
     console.log(data)
 
     logIn(data)
       .then(json => {
         if (!json.user) {
+          alert('Incorrect details!')
           views_manager.show("error", "Failed to login");
           return;
         }
@@ -60,5 +63,7 @@ $(() => {
         all_maps.addMaps(json.maps);
         views_manager.show("allMaps");
       });
+    }
+      $('input').val('');
   });
 });
