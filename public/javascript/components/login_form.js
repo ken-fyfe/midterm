@@ -50,6 +50,7 @@ $(() => {
         allmaps.update(json.user);
         mymaps.update(json.user);
         myfavs.update(json.user);
+        mycollabs.update(json.user);
       })
       .then(getMyMaps)
       .then(function(json) {

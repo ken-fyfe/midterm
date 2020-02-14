@@ -176,8 +176,8 @@ module.exports = db => {
       FROM map_id_pin_ids
       JOIN maps ON maps.id = map_id_pin_ids.map_id
       JOIN pins ON pins.id = map_id_pin_ids.pin_id
-      WHERE map.id NOT IN (SELECT id FROM maps WHERE user_id = $1)
-      AND pin.id IN (SELECT id FROM pins WHERE user_id = $1);`,
+      WHERE maps.id NOT IN (SELECT id FROM maps WHERE user_id = $1)
+      AND pins.id IN (SELECT id FROM pins WHERE user_id = $1);`,
       [userId]
     )
     .then(mapsData => {
@@ -388,6 +388,7 @@ module.exports = db => {
   });
 
   router.post("/setMapId", (req, res) => {
+    console.log('inside setmapId');
     const userId = req.session.userId;
     const mapId = req.body.mapId;
     req.session.mapId = mapId;
