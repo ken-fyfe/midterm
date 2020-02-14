@@ -90,7 +90,7 @@ $(() => {
         </div>
         <div class="card-body">
 
-          <p class="card-text">${map.description}</p>
+          <div class="block-with-text" class="card-text">${map.description}</div>
           <script>
           function getMapDetails(data) {
             return $.ajax({
