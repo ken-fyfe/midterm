@@ -9,22 +9,31 @@ const bcrypt = require("bcrypt");
 const express = require("express");
 const router = express.Router();
 
+function escape(unsafe) {
+  return unsafe
+       .replace(/&/g, "&amp;")
+       .replace(/</g, "&lt;")
+       .replace(/>/g, "&gt;")
+       .replace(/"/g, "&quot;")
+       .replace(/'/g, "&#039;");
+}
+
 module.exports = db => {
-  router.get("/", (req, res) => {
-    db.query(`SELECT * FROM users;`)
-      .then(data => {
-        const users = data.rows;
-        res.json({ users });
-      })
-      .catch(err => {
-        res.status(500).json({ error: err.message });
-      });
-  });
+  // router.get("/", (req, res) => {
+  //   db.query(`SELECT * FROM users;`)
+  //     .then(data => {
+  //       const users = data.rows;
+  //       res.json({ users });
+  //     })
+  //     .catch(err => {
+  //       res.status(500).json({ error: err.message });
+  //     });
+  // });
 
   router.post("/signup", (req, res) => {
     const user = req.body;
-    user.password = bcrypt.hashSync(user.password, 12);
-    const userValues = [user["username"], user["email"], user["password"]];
+    user.password = bcrypt.hashSync(escape(user.password), 12);
+    const userValues = [escape(user["username"]), escape(user["email"]), user["password"]];
     return db
       .query(`
         INSERT INTO users (
@@ -59,10 +68,10 @@ module.exports = db => {
         SELECT *
         FROM users
         WHERE email = $1;`,
-        [email]
+        [escape(email)]
       )
       .then(res => {
-        if (bcrypt.compareSync(password, res.rows[0].password)) {
+        if (bcrypt.compareSync(escape(password), res.rows[0].password)) {
           const userobj = {
             password: res.rows[0].password,
             username: res.rows[0].username,
@@ -228,8 +237,8 @@ module.exports = db => {
     const mapId = req.session.mapId;
     const map = req.body;
     const mapValues = [
-      map["name"],
-      map["desciption"], mapId
+      escape(map["name"]),
+      escape(map["desciption"]), mapId
     ];
     return db
       .query(`
@@ -359,16 +368,12 @@ console.log(mapValues, "mapValues")
   router.post("/createPin", (req, res) => {
     pinObject = req.body;
     pinId = req.session.pinId;
-    const lat = pinObject.lat;
-    const lng = pinObject.lng;
-    const pinTitle = pinObject.name;
-    const pinDesc = pinObject.description;
     return db
       .query(`
         UPDATE pins
         SET title = $1, description = $2, category = $3
         WHERE id = $4 RETURNING *;`,
-        [pinObject.name, pinObject.description, pinObject.category, pinId]
+        [escape(pinObject.name), escape(pinObject.description), escape(pinObject.category), pinId]
       )
       .then(newPin => {
         const newPinObj = newPin.rows[0];
