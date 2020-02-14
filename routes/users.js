@@ -151,6 +151,24 @@ module.exports = db => {
     })
     .catch(e => res.send(e));
   });
+
+  router.get("/favs", (req, res) => {
+    const userId = req.session.userId;
+    console.log("inside fav maps", userId);
+    return db
+      .query(`
+      SELECT maps.*
+      FROM map_user_likes JOIN maps ON maps.id = map_user_likes.map_id WHERE map_user_likes.user_id = $1;`,
+      [userId]
+    )
+    .then(mapsData => {
+      const maps = mapsData.rows;
+      res.send({ maps });
+    })
+    .catch(e => res.send(e));
+  });
+
+
   router.get("/allmaps", (req, res) => {
     const userId = req.session.userId;
     console.log("inside maps", userId);
