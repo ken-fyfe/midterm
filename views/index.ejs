@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/styles/layout.css" type="text/css" />
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous" />
     <link rel="stylesheet" href="/main.css" type="text/css" />
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet"/>
     <link rel="stylesheet" href="https://unpkg.com/leaflet@1.6.0/dist/leaflet.css" integrity="sha512-xwE/Az9zrjBIphAcBb3F6JVqxf46+CDLwfLMHloNu6KEQCAWi6HcDUbeOfBIptF7tcCzusKFjFw2yuvEpDL9wQ==" crossorigin=""/>
     <script type="text/javascript" src="/vendor/jquery-3.0.0.js"></script>
     <script src="https://unpkg.com/leaflet@1.6.0/dist/leaflet.js" integrity="sha512-gZwIG9x3wUXg2hdXF6+rVkLF/0Vi9U8D2Ntg4Ga5I5BZpVkVxlJWbSQtXPSiUTtC0TjtGOmxa1AJPuV0CPthew==" crossorigin=""></script>
@@ -30,6 +31,25 @@
       <div class="alert alert-info" id="addMapAlert">
         Click on the map to drop a pin for the map centre.
       </div>
+
+      <div id="add-maps-label">
+        Add map
+      </div>
+      <div id="all-maps-label">
+        All maps
+      </div>
+      <div id="my-maps-label">
+        My maps
+      </div>
+      <div id="my-favs-label">
+        My favs
+      </div>
+      <div id="my-collabs-label">
+        My collaborations
+      </div>
+      <div id="my-addpin-label">
+        Add pin
+      </div>
       <div id="addmaps"></div>
       <div id="dropPin"></div>
       <div id="allmaps"></div>
@@ -37,10 +57,6 @@
       <div id="myfavs"></div>
       <div id="mycollabs"></div>
       <img id="aeroplaneImg" src="/images/aeroplane.png">
-      <div id="error-msg-no-char">
-        <img id="errorIcon" src="/images/error.png">
-        This form cannot be blank!
-      </div>
 
       <main id="main-content">
         <div id="maps-div">

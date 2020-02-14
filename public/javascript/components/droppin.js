@@ -30,4 +30,10 @@ $(() => {
       $("#addPinAlert").show()
 currentMap.addPin()
   });
+
+  $("#dropPin").hover( () => {
+    $("#my-addpin-label").css("display", "block")},
+    () => {
+      $("#my-addpin-label").hide()
+    })
 });

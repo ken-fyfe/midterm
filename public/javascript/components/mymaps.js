@@ -9,10 +9,10 @@ $(() => {
           url: "/api/users/maps"
         });
       }
-     
-  
+
+
     window.mymaps = {};
-  
+
     const $mymaps = $("#mymaps");
     let currentUser = null;
     function updateButton(user) {
@@ -24,11 +24,11 @@ $(() => {
       } else {
         userButton = ``;
       }
-  
+
       $mymaps.append(userButton);
     }
     window.mymaps.update = updateButton;
-  
+
     getMyDetails().then(function(json) {
       console.log(json, "inside button");
       updateButton(json.user);
@@ -36,9 +36,15 @@ $(() => {
     $("#mymaps").on("click", () => {
         getMyMaps().then(function(json) {
             all_maps.addMaps(json.maps);
-        
+
             views_manager.show("allMaps");
           });
     });
+
+    $("#mymaps").hover( () => {
+      $("#my-maps-label").css("display", "block")},
+      () => {
+        $("#my-maps-label").hide()
+      })
+
   });
-  

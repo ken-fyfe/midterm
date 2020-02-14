@@ -172,7 +172,7 @@ module.exports = db => {
     console.log("inside collab maps", userId);
     return db
       .query(`
-      SELECT maps.*
+      SELECT DISTINCT maps.*
       FROM map_id_pin_ids
       JOIN maps ON maps.id = map_id_pin_ids.map_id
       JOIN pins ON pins.id = map_id_pin_ids.pin_id

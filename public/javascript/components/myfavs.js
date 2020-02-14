@@ -40,4 +40,11 @@ $(() => {
           views_manager.show("allMaps");
         });
   });
+
+  $("#myfavs").hover( () => {
+    $("#my-favs-label").css("display", "block")},
+    () => {
+      $("#my-favs-label").hide()
+    })
+
 });

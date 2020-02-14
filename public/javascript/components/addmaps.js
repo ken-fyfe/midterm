@@ -31,4 +31,12 @@ $(() => {
     $("#addMapAlert").show()
     currentMap.addMap();
   });
+
+  $("#addmaps").hover( () => {
+    $("#add-maps-label").css("display", "block")},
+    () => {
+      $("#add-maps-label").hide()
+    })
+
+
 });

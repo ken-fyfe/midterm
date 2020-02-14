@@ -231,22 +231,84 @@
   width: 5vh;
 }
 
-#error-msg-no-char {
+#add-maps-label {
 	margin: 10px 0;
-	padding: 10px;
-	border-radius: 3px 3px 3px 3px;
-	color: #D8000C;
-	background-color: #FFBABA;
-  display: none;
-  position: absolute;
-  z-index: 1;
-  top: 5vh;
-  left: 6vh;
+    padding: 10px;
+    border-radius: 20px;
+    color: #ffffff;
+    background-color:rgba(59, 132, 180, 1);
+    display: none;
+    position: absolute;
+    z-index: 1;
+    top: 1vh;
+    left: 85%;
 }
 
-#errorIcon {
-	height: 20px;
-	width: 20px;
-	position: relative;
-	top: 2px;
+#all-maps-label {
+	margin: 10px 0;
+    padding: 10px;
+    border-radius: 20px;
+    color: #ffffff;
+    background-color:rgb(39, 158, 118);
+    display: none;
+    position: absolute;
+    z-index: 1;
+    top: 12vh;
+    left: 85%;
 }
+
+#my-maps-label {
+	margin: 10px 0;
+    padding: 10px;
+    border-radius: 20px;
+    color: #ffffff;
+    background-color:rgb(243, 142, 26);
+    display: none;
+    position: absolute;
+    z-index: 1;
+    top: 20vh;
+    left: 85%;
+}
+
+#my-favs-label {
+	margin: 10px 0;
+    padding: 10px;
+    border-radius: 20px;
+    color: #ffffff;
+    background-color:rgba(59, 132, 180, 1);
+    display: none;
+    position: absolute;
+    z-index: 1;
+    top: 29vh;
+    left: 85%;
+}
+
+#my-collabs-label {
+	margin: 10px 0;
+    padding: 10px;
+    border-radius: 20px;
+    color: #ffffff;
+    background-color:rgb(39, 158, 118);
+    display: none;
+    position: absolute;
+    z-index: 1;
+    top: 38vh;
+    left: 82%;
+}
+
+#my-addpin-label {
+	margin: 10px 0;
+    padding: 10px;
+    border-radius: 20px;
+    color: #ffffff;
+    background-color:rgb(243, 142, 26);
+    display: none;
+    position: absolute;
+    z-index: 1;
+    top: 47vh;
+    left: 85%;
+}
+
+
+
+

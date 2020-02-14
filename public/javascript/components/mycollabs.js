@@ -40,4 +40,10 @@ $(() => {
           views_manager.show("allMaps");
         });
   });
+
+  $("#mycollabs").hover( () => {
+    $("#my-collabs-label").css("display", "block")},
+    () => {
+      $("#my-collabs-label").hide()
+    })
 });

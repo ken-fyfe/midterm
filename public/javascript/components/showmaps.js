@@ -39,4 +39,10 @@ $(() => {
       views_manager.show("allMaps");
     });
   });
+
+  $("#allmaps").hover( () => {
+    $("#all-maps-label").css("display", "block")},
+    () => {
+      $("#all-maps-label").hide()
+    })
 });
