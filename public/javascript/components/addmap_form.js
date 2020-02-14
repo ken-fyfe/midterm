@@ -35,6 +35,7 @@ $(() => {
   window.$createMapForm = $createMapForm;
   $createMapForm.on("submit", function(event) {
     event.preventDefault();
+    $('input').val('');
     const data = $(this).serialize();
     console.log("data",data)
     createMap(data)
