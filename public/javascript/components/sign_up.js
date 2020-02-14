@@ -50,6 +50,11 @@ function getMyDetails() {
     .then((json) => {
         console.log(json)
         header.update(json.user);
+        addmaps.update(json.user);
+        allmaps.update(json.user);
+        mymaps.update(json.user);
+        myfavs.update(json.user);
+        mycollabs.update(json.user);
         views_manager.show('loggedIn');
       });
       $('input').val('')
