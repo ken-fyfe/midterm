@@ -35,7 +35,9 @@ $(() => {
   window.$createMapForm = $createMapForm;
   $createMapForm.on("submit", function(event) {
     event.preventDefault();
-    $('input').val('');
+    if($(':input[type=name]').val() === ''||$(':input[type=textarea]').val()=== ''){
+      alert('This form cannot be blank!')
+    } else {
     const data = $(this).serialize();
     console.log("data",data)
     createMap(data)
@@ -43,8 +45,10 @@ $(() => {
       .then(function(json) {
         console.log("maps", json);
         all_maps.addMaps(json.maps);
-
         views_manager.show("allMaps");
       });
+      $('input').val('');
+    }
+
   });
 });
