@@ -58,7 +58,7 @@
 }
 .card-image-top {
   width: 18vw;
-  height: 15vh;
+  height: 18vh;
   border-radius: 5px;
   padding-bottom: 1px;
   opacity: 1;
@@ -73,14 +73,14 @@
   color: #ffffff;
   padding: 0em 0.5em 0 0.5em;
   position: relative;
-  top:  1vh;
-  left: 1vh;
-
+  top:  2vh;
+  left: 0.5vh;
+  text-overflow: ellipsis;
 }
 .card-title {
   color: #ffffff;
   margin-bottom: 0px;
-  top: -.8vh;
+  top: 0vh;
   left: 4vh;
   position: absolute;
   padding: 0.5em 0.5em 0 0.5em;
@@ -132,7 +132,7 @@
   z-index: 1;
   position: relative;
   left: .4vh;
-  margin: -1.1em;
+  margin: -0.8em;
 }
 
 #addpinbutton {
@@ -159,8 +159,8 @@
 .heart-text {
   display: inline-block;
   position: absolute;
-    top: 0vh;
-    left: 1.4vh;
+    top: 1vh;
+    left: 2.5vh;
     font-size: 1em;
     color: #061a52;
 }
