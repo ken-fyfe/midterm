@@ -80,7 +80,7 @@ $(() => {
           }
 
           $('#smallmapdiv${n}').on('click', () => {
-            $('#aeroplaneImg').show();
+
             setMapId(${JSON.stringify(mapObject)})
             currentMap.update(${JSON.stringify(mapObject)})})
           </script>
@@ -157,3 +157,5 @@ $(() => {
 // currentValue = (Number($("#likesdiv${n}").val()) + 1)
 //               console.log(typeof currentValue)
 //    $("#likesdiv${n}").text(currentValue)
+
+//$('#aeroplaneImg').show();

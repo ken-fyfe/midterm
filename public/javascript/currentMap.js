@@ -76,9 +76,9 @@ $(() => {
       .then(function( json ) {
         dropPin.update(json.user);
       });
-      setTimeout(function() {
-        $('#aeroplaneImg').hide();
-      }, 5000);
+      // setTimeout(function() {
+      //   $('#aeroplaneImg').hide();
+      // }, 5000);
       map.flyTo([lat, long], zoomLevel, { duration: 5 });
     }
   }
