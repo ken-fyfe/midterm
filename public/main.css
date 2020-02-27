@@ -18,7 +18,8 @@ html, body {
 }
 
 #map-current-location {
-  height: 93vh;
+  width: 100vw;
+  height: 93%;
   z-index: 0;
   position: relative;
   left: 0px;
